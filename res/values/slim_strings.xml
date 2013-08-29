@@ -87,4 +87,10 @@
         <item quantity="other">%d calls</item>
     </plurals>
 
+    <!-- Title bar for call stat detail screen -->
+    <string name="callStatsDetailTitle">Call stat details</string>
+
+    <string name="menu_add_to_blacklist">Add to blacklist</string>
+    <string name="toast_added_to_blacklist">%s added to blacklist.</string>
+
 </resources>
