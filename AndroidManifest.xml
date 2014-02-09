@@ -52,6 +52,11 @@
      presses home. -->
     <uses-permission android:name="android.permission.STOP_APP_SWITCHES" />
 
+    <!-- Allow the Dialer to access accounts for lookup services -->
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
     <application
         android:name="DialerApplication"
         android:label="@string/applicationLabel"
@@ -306,6 +311,16 @@
                 <action android:name="com.android.incallui.ACTION_ANSWER_ICOMING_CALL" />
             </intent-filter>
         </receiver>
+
+        <provider android:name="com.android.dialer.lookup.DialerProvider"
+                  android:authorities="com.android.dialer.provider"
+                  android:exported="false"
+                  android:multiprocess="false" />
+
+        <provider android:name="com.android.dialer.lookup.PhoneNumberCacheProvider"
+                  android:authorities="com.android.dialer.cacheprovider"
+                  android:exported="false"
+                  android:multiprocess="false" />
 
     </application>
 </manifest>
