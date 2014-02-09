@@ -48,4 +48,7 @@
     <string name="menu_add_to_blacklist">Добавить в черный список</string>
     <string name="toast_added_to_blacklist">%s добавлен в черный список.</string>
     <string name="call_log_stats_title">Статистика</string>
+
+    <!-- Forward lookup -->
+    <string name="nearby_places">Места неподалеку</string>
 </resources>
