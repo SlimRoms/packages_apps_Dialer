@@ -57,7 +57,8 @@ public abstract class ReverseLookup {
                 INSTANCE = new GoogleReverseLookup(context);
             } else if (provider.equals(LookupSettings.RLP_OPENCNAM)) {
                 INSTANCE = new OpenCnamReverseLookup(context);
-            } else if (provider.equals(LookupSettings.RLP_WHITEPAGES)) {
+            } else if (provider.equals(LookupSettings.RLP_WHITEPAGES)
+                    || provider.equals(LookupSettings.RLP_WHITEPAGES_CA)) {
                 INSTANCE = new WhitePagesReverseLookup(context);
             } else if (provider.equals(LookupSettings.RLP_YELLOWPAGES)) {
                 INSTANCE = new YellowPagesReverseLookup(context);
@@ -76,7 +77,8 @@ public abstract class ReverseLookup {
         } else if (provider.equals(LookupSettings.RLP_OPENCNAM)
                 && INSTANCE instanceof OpenCnamReverseLookup) {
             return true;
-        } else if (provider.equals(LookupSettings.RLP_WHITEPAGES)
+        } else if ((provider.equals(LookupSettings.RLP_WHITEPAGES)
+                || provider.equals(LookupSettings.RLP_WHITEPAGES_CA))
                 && INSTANCE instanceof WhitePagesReverseLookup) {
             return true;
         } else if (provider.equals(LookupSettings.RLP_YELLOWPAGES)

@@ -58,7 +58,7 @@ public class WhitePagesReverseLookup extends ReverseLookup {
     public Pair<PhoneNumberInfoImpl, Object> lookupNumber(
             Context context, String normalizedNumber, String formattedNumber,
             boolean isIncoming) {
-        WhitePagesApi wpa = new WhitePagesApi(normalizedNumber);
+        WhitePagesApi wpa = new WhitePagesApi(context, normalizedNumber);
         WhitePagesApi.ContactInfo info = null;
 
         try {

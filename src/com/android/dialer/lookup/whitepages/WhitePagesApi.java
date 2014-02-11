@@ -16,8 +16,11 @@
 
 package com.android.dialer.lookup.whitepages;
 
+import com.android.dialer.lookup.LookupSettings;
 import com.android.services.telephony.common.MoreStrings;
 
+import android.content.Context;
+import android.text.Html;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
@@ -35,25 +38,37 @@ import org.apache.http.impl.client.DefaultHttpClient;
 public class WhitePagesApi {
     private static final String TAG = WhitePagesApi.class.getSimpleName();
 
+    private static final String LOOKUP_URL_UNITED_STATES =
+            "http://www.whitepages.com/search/ReversePhone?full_phone=";
+    private static final String LOOKUP_URL_CANADA =
+            "http://www.whitepages.ca/search/ReversePhone?full_phone=";
+
     private static final String USER_AGENT =
             "Mozilla/5.0 (X11; Linux x86_64; rv:26.0) Gecko/20100101 Firefox/26.0";
-    private static final String LOOKUP_URL =
-            "http://www.whitepages.com/search/ReversePhone?full_phone=";
     private static final String[] COOKIE_REGEXES = {
             "distil_RID=([A-Za-z0-9\\-]+)", "PID=([A-Za-z0-9\\-]+)" };
     private static final String COOKIE = "D_UID";
 
+    private String mProvider = null;
     private String mNumber = null;
     private String mOutput = null;
     private String mCookie = null;
     private ContactInfo mInfo = null;
+    private String mLookupUrl = null;
 
-    public WhitePagesApi(String number) {
+    public WhitePagesApi(Context context, String number) {
+        mProvider = LookupSettings.getReverseLookupProvider(context);
         mNumber = number;
+
+        if (mProvider.equals(LookupSettings.RLP_WHITEPAGES)) {
+            mLookupUrl = LOOKUP_URL_UNITED_STATES;
+        } else if (mProvider.equals(LookupSettings.RLP_WHITEPAGES_CA)) {
+            mLookupUrl = LOOKUP_URL_CANADA;
+        }
     }
 
     private void fetchPage() throws IOException {
-        mOutput = httpGet(LOOKUP_URL + mNumber);
+        mOutput = httpGet(mLookupUrl + mNumber);
     }
 
     private void findUuidAndReload() throws IOException {
@@ -104,10 +119,9 @@ public class WhitePagesApi {
         return new String(out.toByteArray());
     }
 
-    private void buildContactInfo() {
+    private String parseNameUnitedStates() {
         Matcher m;
 
-        // Name
         Pattern regexName = Pattern
                 .compile("<h2.*?>Send (.*?)&#39;s details to phone</h2>",
                         Pattern.DOTALL);
@@ -134,7 +148,31 @@ public class WhitePagesApi {
             name = name.replaceAll("&amp;", "&");
         }
 
-        // Formatted phone number
+        return name;
+    }
+
+    private String parseNameCanada() {
+        Matcher m;
+
+        Pattern regexName = Pattern.compile(
+                "(<li\\s+class=\"listing_info\">.*?</li>)", Pattern.DOTALL);
+        String name = null;
+
+        m = regexName.matcher(mOutput);
+        if (m.find()) {
+            name = m.group(1).trim();
+        }
+
+        if (name != null) {
+            name = Html.fromHtml(name).toString().trim();
+        }
+
+        return name;
+    }
+
+    private String parseNumberUnitedStates() {
+        Matcher m;
+
         Pattern regexPhoneNumber = Pattern.compile(
                 "Full Number:</span>([0-9\\-\\+\\(\\)]+)</li>", Pattern.DOTALL);
         String phoneNumber = null;
@@ -144,7 +182,12 @@ public class WhitePagesApi {
             phoneNumber = m.group(1).trim();
         }
 
-        // Address
+        return phoneNumber;
+    }
+
+    private String parseAddressUnitedStates() {
+        Matcher m;
+
         String regexBase = "<span\\s+class=\"%s[^\"]+\"\\s*>([^<]*)</span>";
 
         Pattern regexAddressPrimary = Pattern.compile(
@@ -192,11 +235,52 @@ public class WhitePagesApi {
             address = null;
         }
 
+        return address;
+    }
+
+    private String parseAddressCanada() {
+        Matcher m;
+
+        Pattern regexAddress = Pattern
+                .compile(
+                        "<ol class=\"result people_result\">.*?(<li\\s+class=\"col_location\">.*?</li>).*?</ol>",
+                        Pattern.DOTALL);
+        String address = null;
+
+        m = regexAddress.matcher(mOutput);
+        if (m.find()) {
+            address = m.group(1).trim();
+        }
+
+        if (address != null) {
+            address = Html.fromHtml(address).toString().replace("\n", ", ").trim();
+        }
+
+        return address;
+    }
+
+    private void buildContactInfo() {
+        Matcher m;
+
+        String name = null;
+        String phoneNumber = null;
+        String address = null;
+
+        if (mProvider.equals(LookupSettings.RLP_WHITEPAGES)) {
+            name = parseNameUnitedStates();
+            phoneNumber = parseNumberUnitedStates();
+            address = parseAddressUnitedStates();
+        } else if (mProvider.equals(LookupSettings.RLP_WHITEPAGES_CA)) {
+            name = parseNameCanada();
+            // Canada's WhitePages does not provide a formatted number
+            address = parseAddressCanada();
+        }
+
         ContactInfo info = new ContactInfo();
         info.name = name;
         info.address = address;
         info.formattedNumber = phoneNumber != null ? phoneNumber : mNumber;
-        info.website = LOOKUP_URL + info.formattedNumber;
+        info.website = mLookupUrl + info.formattedNumber;
         mInfo = info;
     }
 
