@@ -16,6 +16,11 @@
 
 package com.android.dialer.lookup.yellowpages;
 
+import com.android.dialer.lookup.LookupSettings;
+
+import android.content.Context;
+import android.text.Html;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -33,18 +38,30 @@ import org.apache.http.impl.client.DefaultHttpClient;
 public class YellowPagesApi {
     private static final String TAG = YellowPagesApi.class.getSimpleName();
 
-    private static final String LOOKUP_URL = "http://www.yellowpages.com/phone?phone_search_terms=";
+    private static final String LOOKUP_URL_UNITED_STATES =
+            "http://www.yellowpages.com/phone?phone_search_terms=";
+    private static final String LOOKUP_URL_CANADA =
+            "http://www.yellowpages.ca/search/si/1/";
 
+    private String mProvider = null;
     private String mNumber = null;
-    public String mOutput = null;
+    private String mOutput = null;
     private ContactInfo mInfo = null;
+    private String mLookupUrl = null;
 
-    public YellowPagesApi(String number) {
+    public YellowPagesApi(Context context, String number) {
+        mProvider = LookupSettings.getReverseLookupProvider(context);
         mNumber = number;
+
+        if (mProvider.equals(LookupSettings.RLP_YELLOWPAGES)) {
+            mLookupUrl = LOOKUP_URL_UNITED_STATES;
+        } else if (mProvider.equals(LookupSettings.RLP_YELLOWPAGES_CA)) {
+            mLookupUrl = LOOKUP_URL_CANADA;
+        }
     }
 
     private void fetchPage() throws IOException {
-        mOutput = httpGet(LOOKUP_URL + mNumber);
+        mOutput = httpGet(mLookupUrl + mNumber);
     }
 
     private String httpGet(String url) throws IOException {
@@ -109,10 +126,9 @@ public class YellowPagesApi {
         return photoUrl;
     }
 
-    private void buildContactInfo() throws IOException {
+    private String[] parseNameWebsiteUnitedStates() {
         Matcher m;
 
-        // Name
         Pattern regexNameAndWebsite = Pattern.compile(
                 "<a href=\"([^>]+?)\"[^>]+?class=\"url[^>]+?>([^<]+)</a>",
                 Pattern.DOTALL);
@@ -125,7 +141,39 @@ public class YellowPagesApi {
             name = m.group(2).trim();
         }
 
-        // Formatted phone number
+        return new String[] { name, website };
+    }
+
+    private String[] parseNameWebsiteCanada() {
+        Matcher m;
+
+        Pattern regexNameAndWebsite = Pattern.compile(
+                "class=\"ypgListingTitleLink utagLink\".*?href=\"(.*?)\">"
+                        + "(<span\\s+class=\"listingTitle\">.*?</span>)",
+                Pattern.DOTALL);
+        String name = null;
+        String website = null;
+
+        m = regexNameAndWebsite.matcher(mOutput);
+        if (m.find()) {
+            website = m.group(1).trim();
+            name = m.group(2).trim();
+        }
+
+        if (name != null) {
+            name = Html.fromHtml(name).toString().trim();
+        }
+
+        if (website != null) {
+            website = "http://www.yellowpages.ca" + website;
+        }
+
+        return new String[] { name, website };
+    }
+
+    private String parseNumberUnitedStates() {
+        Matcher m;
+
         Pattern regexPhoneNumber = Pattern.compile(
                 "business-phone.*?>\n*([^\n<]+)\n*<", Pattern.DOTALL);
         String phoneNumber = null;
@@ -135,7 +183,27 @@ public class YellowPagesApi {
             phoneNumber = m.group(1).trim();
         }
 
-        // Address
+        return phoneNumber;
+    }
+
+    private String parseNumberCanada() {
+        Matcher m;
+
+        Pattern regexPhoneNumber = Pattern.compile(
+                "<div\\s+class=\"phoneNumber\">(.*?)</div>", Pattern.DOTALL);
+        String phoneNumber = null;
+
+        m = regexPhoneNumber.matcher(mOutput);
+        if (m.find()) {
+            phoneNumber = m.group(1).trim();
+        }
+
+        return phoneNumber;
+    }
+
+    private String parseAddressUnitedStates() {
+        Matcher m;
+
         Pattern regexAddressStreet = Pattern.compile(
                 "street-address.*?>\n*([^\n<]+)\n*<", Pattern.DOTALL);
         Pattern regexAddressCity = Pattern.compile(
@@ -197,9 +265,53 @@ public class YellowPagesApi {
             address = null;
         }
 
+        return address;
+    }
+
+    private String parseAddressCanada() {
+        Matcher m;
+
+        Pattern regexAddress = Pattern.compile(
+                "<div\\s+class=\"address\">(.*?)</div>", Pattern.DOTALL);
+        String address = null;
+
+        m = regexAddress.matcher(mOutput);
+        if (m.find()) {
+            address = m.group(1).trim();
+        }
+
+        if (address != null) {
+            address = Html.fromHtml(address).toString().trim();
+        }
+
+        return address;
+    }
+
+    private void buildContactInfo() throws IOException {
+        Matcher m;
+
+        String name = null;
+        String website = null;
+        String phoneNumber = null;
+        String address = null;
         String photoUrl = null;
-        if (website != null) {
-            photoUrl = getPhotoUrl(website);
+
+        if (mProvider.equals(LookupSettings.RLP_YELLOWPAGES)) {
+            String[] ret = parseNameWebsiteUnitedStates();
+            name = ret[0];
+            website = ret[1];
+            phoneNumber = parseNumberUnitedStates();
+            address = parseAddressUnitedStates();
+            if (website != null) {
+                photoUrl = getPhotoUrl(website);
+            }
+        } else if (mProvider.equals(LookupSettings.RLP_YELLOWPAGES_CA)) {
+            String[] ret = parseNameWebsiteCanada();
+            name = ret[0];
+            website = ret[1];
+            phoneNumber = parseNumberCanada();
+            address = parseAddressCanada();
+            // AFAIK, Canada's YellowPages doesn't have photos
         }
 
         ContactInfo info = new ContactInfo();

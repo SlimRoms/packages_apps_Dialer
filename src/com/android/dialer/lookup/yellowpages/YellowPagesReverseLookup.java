@@ -91,7 +91,7 @@ public class YellowPagesReverseLookup extends ReverseLookup {
     public Pair<PhoneNumberInfoImpl, Object> lookupNumber(
             Context context, String normalizedNumber, String formattedNumber,
             boolean isIncoming) {
-        YellowPagesApi ypa = new YellowPagesApi(normalizedNumber);
+        YellowPagesApi ypa = new YellowPagesApi(context, normalizedNumber);
         YellowPagesApi.ContactInfo info = null;
 
         try {

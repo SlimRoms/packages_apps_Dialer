@@ -36,6 +36,7 @@ public final class LookupSettings {
     public static final String RLP_WHITEPAGES = "WhitePages";
     public static final String RLP_WHITEPAGES_CA = "WhitePages_CA";
     public static final String RLP_YELLOWPAGES = "YellowPages";
+    public static final String RLP_YELLOWPAGES_CA = "YellowPages_CA";
     public static final String RLP_ZABASEARCH = "ZabaSearch";
 
     private LookupSettings() {
