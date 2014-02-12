@@ -52,4 +52,7 @@
 
     <string name="menu_add_to_blacklist">Fekete listához ad</string>
     <string name="toast_added_to_blacklist">%s fekete listához adva.</string>
+
+    <!-- Forward lookup -->
+    <string name="nearby_places">Közeli helyek</string>
 </resources>
