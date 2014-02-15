@@ -17,7 +17,6 @@
 package com.android.dialer.lookup;
 
 import com.android.dialer.R;
-import com.android.dialer.lookup.google.GoogleReverseLookup;
 import com.android.dialer.lookup.opencnam.OpenCnamReverseLookup;
 import com.android.dialer.lookup.whitepages.WhitePagesReverseLookup;
 import com.android.dialer.lookup.yellowpages.YellowPagesReverseLookup;
@@ -53,9 +52,7 @@ public abstract class ReverseLookup {
         if (INSTANCE == null || !isInstance(provider)) {
             Log.d(TAG, "Chosen reverse lookup provider: " + provider);
 
-            if (provider.equals(LookupSettings.RLP_GOOGLE)) {
-                INSTANCE = new GoogleReverseLookup(context);
-            } else if (provider.equals(LookupSettings.RLP_OPENCNAM)) {
+            if (provider.equals(LookupSettings.RLP_OPENCNAM)) {
                 INSTANCE = new OpenCnamReverseLookup(context);
             } else if (provider.equals(LookupSettings.RLP_WHITEPAGES)
                     || provider.equals(LookupSettings.RLP_WHITEPAGES_CA)) {
@@ -72,10 +69,7 @@ public abstract class ReverseLookup {
     }
 
     private static boolean isInstance(String provider) {
-        if (provider.equals(LookupSettings.RLP_GOOGLE)
-                && INSTANCE instanceof GoogleReverseLookup) {
-            return true;
-        } else if (provider.equals(LookupSettings.RLP_OPENCNAM)
+        if (provider.equals(LookupSettings.RLP_OPENCNAM)
                 && INSTANCE instanceof OpenCnamReverseLookup) {
             return true;
         } else if ((provider.equals(LookupSettings.RLP_WHITEPAGES)

@@ -100,8 +100,7 @@ public class GoogleForwardLookup extends ForwardLookup {
             }
 
             try {
-                Uri.Builder builder = Uri.parse(
-                        rewriteUrl(context, LOOKUP_URL)).buildUpon();
+                Uri.Builder builder = Uri.parse(LOOKUP_URL).buildUpon();
 
                 // Query string
                 builder = builder.appendQueryParameter(QUERY_FILTER, filter);
@@ -196,27 +195,6 @@ public class GoogleForwardLookup extends ForwardLookup {
         } else {
             return null;
         }
-    }
-
-    /**
-     * Rewrite URL (eg. if a website has been moved)
-     *
-     * @param context A valid context
-     * @param url Original URL
-     * @return New URL
-     */
-    private String rewriteUrl(Context context, String url) throws IOException {
-        UrlRules.Rule rule = UrlRules.getRules(
-                context.getContentResolver()).matchRule(url);
-        String newUrl = rule.apply(url);
-
-        if (newUrl == null) {
-            if (DEBUG) Log.w(TAG, "Blocked by " + rule.mName + ": " + url);
-            throw new IOException("Blocked by rule: " + rule.mName);
-        }
-
-        if (DEBUG) Log.v(TAG, "Rule " + rule.mName + ": " + url + " -> " + newUrl);
-        return newUrl;
     }
 
     /**

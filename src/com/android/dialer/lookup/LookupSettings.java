@@ -29,15 +29,16 @@ public final class LookupSettings {
     /** Forward lookup providers */
     public static final String FLP_GOOGLE = "Google";
     public static final String FLP_OPENSTREETMAP = "OpenStreetMap";
+    public static final String FLP_DEFAULT = FLP_GOOGLE;
 
     /** Reverse lookup providers */
-    public static final String RLP_GOOGLE = "Google";
     public static final String RLP_OPENCNAM = "OpenCnam";
     public static final String RLP_WHITEPAGES = "WhitePages";
     public static final String RLP_WHITEPAGES_CA = "WhitePages_CA";
     public static final String RLP_YELLOWPAGES = "YellowPages";
     public static final String RLP_YELLOWPAGES_CA = "YellowPages_CA";
     public static final String RLP_ZABASEARCH = "ZabaSearch";
+    public static final String RLP_DEFAULT = RLP_OPENCNAM;
 
     private LookupSettings() {
     }
@@ -53,12 +54,14 @@ public final class LookupSettings {
     }
 
     public static String getForwardLookupProvider(Context context) {
+        upgradeFProviders(context);
+
         String provider = getString(context,
                 Settings.System.FORWARD_LOOKUP_PROVIDER);
 
         if (provider == null) {
             putString(context,
-                    Settings.System.FORWARD_LOOKUP_PROVIDER, FLP_GOOGLE);
+                    Settings.System.FORWARD_LOOKUP_PROVIDER, FLP_DEFAULT);
 
             provider = getString(context,
                     Settings.System.FORWARD_LOOKUP_PROVIDER);
@@ -68,15 +71,14 @@ public final class LookupSettings {
     }
 
     public static String getReverseLookupProvider(Context context) {
+        upgradeRProviders(context);
+
         String provider = getString(context,
                 Settings.System.REVERSE_LOOKUP_PROVIDER);
 
         if (provider == null) {
-            // If Google Play Services is not available, default to the next
-            // provider in the list (OpenCnam)
             putString(context,
-                    Settings.System.REVERSE_LOOKUP_PROVIDER,
-                    isGmsInstalled(context) ? RLP_GOOGLE : RLP_OPENCNAM);
+                    Settings.System.REVERSE_LOOKUP_PROVIDER, RLP_DEFAULT);
 
             provider = getString(context,
                     Settings.System.REVERSE_LOOKUP_PROVIDER);
@@ -85,22 +87,26 @@ public final class LookupSettings {
         return provider;
     }
 
+    private static void upgradeFProviders(Context context) {
+        String provider = getString(context,
+                Settings.System.REVERSE_LOOKUP_PROVIDER);
+    }
+
+    private static void upgradeRProviders(Context context) {
+        String provider = getString(context,
+                Settings.System.REVERSE_LOOKUP_PROVIDER);
+
+        if (provider.equals("Google")) {
+            putString(context,
+                    Settings.System.REVERSE_LOOKUP_PROVIDER, RLP_DEFAULT);
+        }
+    }
+
     private static String getString(Context context, String key) {
         return Settings.System.getString(context.getContentResolver(), key);
     }
 
     private static void putString(Context context, String key, String value) {
         Settings.System.putString(context.getContentResolver(), key, value);
-    }
-
-    private static boolean isGmsInstalled(Context context) {
-        PackageManager pm = context.getPackageManager();
-        List<PackageInfo> packages = pm.getInstalledPackages(0);
-        for (PackageInfo info : packages) {
-            if (info.packageName.equals("com.google.android.gms")) {
-                return true;
-            }
-        }
-        return false;
     }
 }
