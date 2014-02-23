@@ -16,6 +16,7 @@
 
 package com.android.dialer.lookup;
 
+import com.android.dialer.calllog.ContactInfo;
 import com.android.dialer.lookup.google.GoogleForwardLookup;
 import com.android.dialer.lookup.openstreetmap.OpenStreetMapForwardLookup;
 
@@ -56,63 +57,6 @@ public abstract class ForwardLookup {
         }
     }
 
-    public abstract ForwardLookupDetails[] lookup(Context context,
+    public abstract ContactInfo[] lookup(Context context,
             String filter, Location lastLocation);
-
-    public class ForwardLookupDetails {
-        private String mAddress;
-        private String mDisplayName;
-        private String mDistance;
-        private String mPhoneNumber;
-        private String mPhotoUri;
-        private String mWebsite;
-
-        public void setAddress(String address) {
-            mAddress = address;
-        }
-
-        public String getAddress() {
-            return mAddress;
-        }
-
-        public void setDisplayName(String displayName) {
-            mDisplayName = displayName;
-        }
-
-        public String getDisplayName() {
-            return mDisplayName;
-        }
-
-        public void setDistance(String distance) {
-            mDistance = distance;
-        }
-
-        public String getDistance() {
-            return mDistance;
-        }
-
-        public void setPhoneNumber(String phoneNumber) {
-            mPhoneNumber = phoneNumber;
-        }
-
-        public String getPhoneNumber() {
-            return mPhoneNumber;
-        }
-
-        public void setPhotoUri(String photoUri) {
-            mPhotoUri = photoUri;
-        }
-
-        public String getPhotoUri() {
-            return mPhotoUri;
-        }
-
-        public void setWebsite(String website) {
-            mWebsite = website;
-        }
-
-        public String getWebsite() {
-            return mWebsite;
-        }
-    }
 }

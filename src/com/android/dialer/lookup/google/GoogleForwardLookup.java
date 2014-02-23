@@ -16,6 +16,8 @@
 
 package com.android.dialer.lookup.google;
 
+import com.android.dialer.calllog.ContactInfo;
+import com.android.dialer.lookup.ContactBuilder;
 import com.android.dialer.lookup.ForwardLookup;
 
 import android.content.Context;
@@ -23,6 +25,9 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.provider.ContactsContract.CommonDataKinds.StructuredPostal;
+import android.provider.ContactsContract.CommonDataKinds.Website;
 import android.text.Html;
 import android.util.Log;
 
@@ -90,7 +95,7 @@ public class GoogleForwardLookup extends ForwardLookup {
     }
 
     @Override
-    public ForwardLookupDetails[] lookup(Context context,
+    public ContactInfo[] lookup(Context context,
             String filter, Location lastLocation) {
         int length = filter.length();
 
@@ -143,21 +148,19 @@ public class GoogleForwardLookup extends ForwardLookup {
     }
 
     /**
-     * Parse JSON results and return them as an array of ForwardLookupDetails
+     * Parse JSON results and return them as an array of ContactInfo
      *
      * @param results The JSON results returned from the server
-     * @return Array of ForwardLookupDetails containing the result information
+     * @return Array of ContactInfo containing the result information
      */
-    private ForwardLookupDetails[] getEntries(JSONArray results)
+    private ContactInfo[] getEntries(JSONArray results)
             throws JSONException {
-        ArrayList<ForwardLookupDetails> details =
-                new ArrayList<ForwardLookupDetails>();
+        ArrayList<ContactInfo> details =
+                new ArrayList<ContactInfo>();
 
         JSONArray entries = results.getJSONArray(1);
 
         for (int i = 0; i < entries.length(); i++) {
-            ForwardLookupDetails fld = new ForwardLookupDetails();
-
             try {
                 JSONArray entry = entries.getJSONArray(i);
 
@@ -168,30 +171,49 @@ public class GoogleForwardLookup extends ForwardLookup {
                 String phoneNumber = decodeHtml(
                         params.getString(RESULT_NUMBER));
 
-                // Google uses the city instead of the address
-                //String address = decodeHtml(params.getString(RESULT_ADDRESS));
-                String address = decodeHtml(params.getString(RESULT_CITY));
+                String address = decodeHtml(params.getString(RESULT_ADDRESS));
+                String city = decodeHtml(params.getString(RESULT_CITY));
 
                 String profileUrl = params.optString(RESULT_WEBSITE, null);
                 String photoUri = params.optString(RESULT_PHOTO_URI, null);
 
-                String distance = params.optString(RESULT_DISTANCE, null);
+                ContactBuilder builder = new ContactBuilder(
+                        ContactBuilder.FORWARD_LOOKUP, null, phoneNumber);
 
-                fld.setDisplayName(displayName);
-                fld.setPhoneNumber(phoneNumber);
-                fld.setAddress(address);
-                fld.setWebsite(profileUrl);
-                fld.setPhotoUri(photoUri);
-                fld.setDistance(distance);
+                ContactBuilder.Name n = new ContactBuilder.Name();
+                n.displayName = displayName;
+                builder.setName(n);
 
-                details.add(fld);
+                ContactBuilder.PhoneNumber pn = new ContactBuilder.PhoneNumber();
+                pn.number = phoneNumber;
+                pn.type = Phone.TYPE_MAIN;
+                builder.addPhoneNumber(pn);
+
+                ContactBuilder.Address a = new ContactBuilder.Address();
+                a.formattedAddress = address;
+                a.city = city;
+                a.type = StructuredPostal.TYPE_WORK;
+                builder.addAddress(a);
+
+                ContactBuilder.WebsiteUrl w = new ContactBuilder.WebsiteUrl();
+                w.url = profileUrl;
+                w.type = Website.TYPE_PROFILE;
+                builder.addWebsite(w);
+
+                if (photoUri != null) {
+                    builder.setPhotoUri(photoUri);
+                } else {
+                    builder.setPhotoUri(ContactBuilder.PHOTO_URI_BUSINESS);
+                }
+
+                details.add(builder.build());
             } catch (JSONException e) {
                 Log.e(TAG, "Skipping the suggestions at index " + i, e);
             }
         }
 
         if (details.size() > 0) {
-            return details.toArray(new ForwardLookupDetails[details.size()]);
+            return details.toArray(new ContactInfo[details.size()]);
         } else {
             return null;
         }

@@ -16,8 +16,9 @@
 
 package com.android.dialer.lookup.opencnam;
 
+import com.android.dialer.calllog.ContactInfo;
+import com.android.dialer.lookup.ContactBuilder;
 import com.android.dialer.lookup.ReverseLookup;
-import com.android.incallui.service.PhoneNumberServiceImpl.PhoneNumberInfoImpl;
 
 import android.content.Context;
 import android.util.Log;
@@ -46,28 +47,15 @@ public class OpenCnamReverseLookup extends ReverseLookup {
     }
 
     /**
-     * Lookup image
-     *
-     * @param context The application context
-     * @param url The image URL
-     * @param data Extra data (a authentication token, perhaps)
-     */
-    public byte[] lookupImage(Context context, String url, Object data) {
-        return null;
-    }
-
-    /**
      * Perform phone number lookup.
      *
      * @param context The application context
      * @param normalizedNumber The normalized phone number
      * @param formattedNumber The formatted phone number
-     * @param isIncoming Whether the call is incoming or outgoing
      * @return The phone number info object
      */
-    public Pair<PhoneNumberInfoImpl, Object> lookupNumber(
-            Context context, String normalizedNumber, String formattedNumber,
-            boolean isIncoming) {
+    public Pair<ContactInfo, Object> lookupNumber(Context context,
+            String normalizedNumber, String formattedNumber) {
         String displayName;
         try {
             displayName = httpGetRequest(normalizedNumber);
@@ -88,6 +76,7 @@ public class OpenCnamReverseLookup extends ReverseLookup {
                 ? formattedNumber : normalizedNumber;
 
         ContactBuilder builder = new ContactBuilder(
+                ContactBuilder.REVERSE_LOOKUP,
                 normalizedNumber, formattedNumber);
 
         ContactBuilder.Name n = new ContactBuilder.Name();

@@ -19,15 +19,21 @@
 
 package com.android.dialer.lookup.openstreetmap;
 
+import com.android.dialer.calllog.ContactInfo;
+import com.android.dialer.lookup.ContactBuilder;
 import com.android.dialer.lookup.ForwardLookup;
 
 import android.content.Context;
 import android.location.Location;
+import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.provider.ContactsContract.CommonDataKinds.StructuredPostal;
+import android.provider.ContactsContract.CommonDataKinds.Website;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -66,7 +72,8 @@ public class OpenStreetMapForwardLookup extends ForwardLookup {
     public OpenStreetMapForwardLookup(Context context) {
     }
 
-    public ForwardLookupDetails[] lookup(Context context,
+    @Override
+    public ContactInfo[] lookup(Context context,
             String filter, Location lastLocation) {
 
         // The OSM API doesn't support case-insentive searches, but does
@@ -78,8 +85,8 @@ public class OpenStreetMapForwardLookup extends ForwardLookup {
                     + Character.toLowerCase(c) + "]";
         }
 
-        String request = String.format(LOOKUP_QUERY, regex, RADIUS,
-                lastLocation.getLatitude(), lastLocation.getLongitude());
+        String request = String.format(Locale.ENGLISH, LOOKUP_QUERY, regex,
+                RADIUS, lastLocation.getLatitude(), lastLocation.getLongitude());
 
         Log.v(TAG, "POST'ing: " + request);
 
@@ -98,16 +105,14 @@ public class OpenStreetMapForwardLookup extends ForwardLookup {
         return null;
     }
 
-    private ForwardLookupDetails[] getEntries(JSONObject results)
+    private ContactInfo[] getEntries(JSONObject results)
             throws JSONException {
-        ArrayList<ForwardLookupDetails> details =
-                new ArrayList<ForwardLookupDetails>();
+        ArrayList<ContactInfo> details =
+                new ArrayList<ContactInfo>();
 
         JSONArray elements = results.getJSONArray(RESULT_ELEMENTS);
 
         for (int i = 0; i < elements.length(); i++) {
-            ForwardLookupDetails fld = new ForwardLookupDetails();
-
             try {
                 JSONObject element = elements.getJSONObject(i);
                 JSONObject tags = element.getJSONObject(RESULT_TAGS);
@@ -143,19 +148,41 @@ public class OpenStreetMapForwardLookup extends ForwardLookup {
 
                 String website = tags.optString(TAG_WEBSITE, null);
 
-                fld.setDisplayName(displayName);
-                fld.setPhoneNumber(phoneNumber);
-                fld.setAddress(address);
-                fld.setWebsite(website);
+                ContactBuilder builder = new ContactBuilder(
+                        ContactBuilder.FORWARD_LOOKUP, null, phoneNumber);
 
-                details.add(fld);
+                ContactBuilder.Name n = new ContactBuilder.Name();
+                n.displayName = displayName;
+                builder.setName(n);
+
+                ContactBuilder.PhoneNumber pn = new ContactBuilder.PhoneNumber();
+                pn.number = phoneNumber;
+                pn.type = Phone.TYPE_MAIN;
+                builder.addPhoneNumber(pn);
+
+                ContactBuilder.Address a = new ContactBuilder.Address();
+                a.formattedAddress = address;
+                a.city = addressCity;
+                a.street = addressStreet;
+                a.postCode = addressPostCode;
+                a.type = StructuredPostal.TYPE_WORK;
+                builder.addAddress(a);
+
+                ContactBuilder.WebsiteUrl w = new ContactBuilder.WebsiteUrl();
+                w.url = website;
+                w.type = Website.TYPE_HOMEPAGE;
+                builder.addWebsite(w);
+
+                builder.setPhotoUri(ContactBuilder.PHOTO_URI_BUSINESS);
+
+                details.add(builder.build());
             } catch (JSONException e) {
                 Log.e(TAG, "Skipping the suggestions at index " + i, e);
             }
         }
 
         if (details.size() > 0) {
-            return details.toArray(new ForwardLookupDetails[details.size()]);
+            return details.toArray(new ContactInfo[details.size()]);
         } else {
             return null;
         }

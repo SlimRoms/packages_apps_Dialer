@@ -16,10 +16,15 @@
 
 package com.android.dialer.lookup.yellowpages;
 
+import com.android.dialer.calllog.ContactInfo;
+import com.android.dialer.lookup.ContactBuilder;
 import com.android.dialer.lookup.ReverseLookup;
-import com.android.incallui.service.PhoneNumberServiceImpl.PhoneNumberInfoImpl;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Log;
 import android.util.Pair;
 
@@ -34,6 +39,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class YellowPagesReverseLookup extends ReverseLookup {
@@ -47,33 +53,47 @@ public class YellowPagesReverseLookup extends ReverseLookup {
      * Lookup image
      *
      * @param context The application context
-     * @param url The image URL
+     * @param uri The image URI
      * @param data Extra data (a authentication token, perhaps)
      */
-    public byte[] lookupImage(Context context, String url, Object data) {
-        if (url == null) {
-            throw new NullPointerException("URL is null");
+    public Bitmap lookupImage(Context context, Uri uri, Object data) {
+        if (uri == null) {
+            throw new NullPointerException("URI is null");
         }
 
-        Log.e(TAG, "Fetching " + url);
+        Log.e(TAG, "Fetching " + uri);
 
-        HttpClient client = new DefaultHttpClient();
-        HttpGet request = new HttpGet(url);
+        String scheme = uri.getScheme();
 
-        try {
-            HttpResponse response = client.execute(request);
+        if (scheme.startsWith("http")) {
+            HttpClient client = new DefaultHttpClient();
+            HttpGet request = new HttpGet(uri.toString());
 
-            int responseCode = response.getStatusLine().getStatusCode();
+            try {
+                HttpResponse response = client.execute(request);
 
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            response.getEntity().writeTo(out);
-            byte[] responseBytes = out.toByteArray();
+                int responseCode = response.getStatusLine().getStatusCode();
 
-            if (responseCode == HttpStatus.SC_OK) {
-                return responseBytes;
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                response.getEntity().writeTo(out);
+                byte[] responseBytes = out.toByteArray();
+
+                if (responseCode == HttpStatus.SC_OK) {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(
+                            responseBytes, 0, responseBytes.length);
+                    return bmp;
+                }
+            } catch (IOException e) {
+                Log.e(TAG, "Failed to retrieve image", e);
             }
-        } catch (IOException e) {
-            Log.e(TAG, "Failed to retrieve image", e);
+        } else if (scheme.equals(ContentResolver.SCHEME_CONTENT)) {
+            try {
+                ContentResolver cr = context.getContentResolver();
+                Bitmap bmp = BitmapFactory.decodeStream(cr.openInputStream(uri));
+                return bmp;
+            } catch (FileNotFoundException e) {
+                Log.e(TAG, "Failed to retrieve image", e);
+            }
         }
 
         return null;
@@ -85,12 +105,10 @@ public class YellowPagesReverseLookup extends ReverseLookup {
      * @param context The application context
      * @param normalizedNumber The normalized phone number
      * @param formattedNumber The formatted phone number
-     * @param isIncoming Whether the call is incoming or outgoing
      * @return The phone number info object
      */
-    public Pair<PhoneNumberInfoImpl, Object> lookupNumber(
-            Context context, String normalizedNumber, String formattedNumber,
-            boolean isIncoming) {
+    public Pair<ContactInfo, Object> lookupNumber(Context context,
+            String normalizedNumber, String formattedNumber) {
         YellowPagesApi ypa = new YellowPagesApi(context, normalizedNumber);
         YellowPagesApi.ContactInfo info = null;
 
@@ -105,6 +123,7 @@ public class YellowPagesReverseLookup extends ReverseLookup {
         }
 
         ContactBuilder builder = new ContactBuilder(
+                ContactBuilder.REVERSE_LOOKUP,
                 normalizedNumber, formattedNumber);
 
         ContactBuilder.Name n = new ContactBuilder.Name();
@@ -119,7 +138,7 @@ public class YellowPagesReverseLookup extends ReverseLookup {
         if (info.address != null) {
             ContactBuilder.Address a = new ContactBuilder.Address();
             a.formattedAddress = info.address;
-            a.type = StructuredPostal.TYPE_HOME;
+            a.type = StructuredPostal.TYPE_WORK;
             builder.addAddress(a);
         }
 

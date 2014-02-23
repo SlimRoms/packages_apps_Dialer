@@ -12,8 +12,8 @@
 @com.android.dialer.NeededForReflection *;
 }
 
-# Keep DialerExtendedPhoneDirectoriesManager for assets/contacts_extensions.properties
--keep class com.android.dialer.lookup.DialerExtendedPhoneDirectoriesManager extends * {
+# Keep ExtendedLookupDirectories for assets/contacts_extensions.properties
+-keep class com.android.dialer.lookup.ExtendedLookupDirectories extends * {
   *;
 }
 

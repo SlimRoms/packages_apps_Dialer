@@ -55,6 +55,7 @@
 
     <!-- Forward lookup -->
     <string name="nearby_places">Nearby places</string>
+    <string name="people">People</string>
 
     <!--  Localized dialer buttons.
           In English, we don't need a secondary row, so all values are empty.

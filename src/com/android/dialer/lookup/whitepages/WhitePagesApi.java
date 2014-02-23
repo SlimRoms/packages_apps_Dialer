@@ -17,14 +17,10 @@
 package com.android.dialer.lookup.whitepages;
 
 import com.android.dialer.lookup.LookupSettings;
-import com.android.services.telephony.common.MoreStrings;
-
-import android.content.Context;
-import android.text.Html;
-import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,59 +31,232 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.content.Context;
+import android.net.Uri;
+import android.text.Html;
+import android.util.Log;
+
 public class WhitePagesApi {
     private static final String TAG = WhitePagesApi.class.getSimpleName();
 
-    private static final String LOOKUP_URL_UNITED_STATES =
+    public static final int UNITED_STATES = 0;
+    public static final int CANADA = 1;
+
+    private static final String NEARBY_URL_UNITED_STATES =
             "http://www.whitepages.com/search/ReversePhone?full_phone=";
-    private static final String LOOKUP_URL_CANADA =
+    private static final String NEARBY_URL_CANADA =
             "http://www.whitepages.ca/search/ReversePhone?full_phone=";
+
+    private static final String PEOPLE_URL_UNITED_STATES =
+            "http://whitepages.com/search/FindPerson";
 
     private static final String USER_AGENT =
             "Mozilla/5.0 (X11; Linux x86_64; rv:26.0) Gecko/20100101 Firefox/26.0";
-    private static final String[] COOKIE_REGEXES = {
-            "distil_RID=([A-Za-z0-9\\-]+)", "PID=([A-Za-z0-9\\-]+)" };
+    private static final String COOKIE_REGEX = "distil_RID=([A-Za-z0-9\\-]+)";
     private static final String COOKIE = "D_UID";
 
-    private String mProvider = null;
-    private String mNumber = null;
-    private String mOutput = null;
-    private String mCookie = null;
-    private ContactInfo mInfo = null;
-    private String mLookupUrl = null;
+    private static String mCookie;
 
-    public WhitePagesApi(Context context, String number) {
-        mProvider = LookupSettings.getReverseLookupProvider(context);
-        mNumber = number;
+    private WhitePagesApi() {
+    }
 
-        if (mProvider.equals(LookupSettings.RLP_WHITEPAGES)) {
-            mLookupUrl = LOOKUP_URL_UNITED_STATES;
-        } else if (mProvider.equals(LookupSettings.RLP_WHITEPAGES_CA)) {
-            mLookupUrl = LOOKUP_URL_CANADA;
+    public static ContactInfo[] peopleLookup(Context context, String name,
+            int maxResults) throws IOException {
+        String provider = LookupSettings.getPeopleLookupProvider(context);
+
+        if (LookupSettings.PLP_WHITEPAGES.equals(provider)) {
+            Uri.Builder builder = Uri.parse(PEOPLE_URL_UNITED_STATES)
+                    .buildUpon();
+            builder.appendQueryParameter("who", name);
+            String lookupUrl = builder.build().toString();
+            String output = httpGet(lookupUrl);
+            return parseOutputUnitedStates(output, maxResults);
         }
+        // no-op
+        return null;
     }
 
-    private void fetchPage() throws IOException {
-        mOutput = httpGet(mLookupUrl + mNumber);
-    }
+    private static ContactInfo[] parseOutputUnitedStates(String output,
+            int maxResults) throws IOException {
+        ArrayList<ContactInfo> people = new ArrayList<ContactInfo>();
 
-    private void findUuidAndReload() throws IOException {
-        for (String regex : COOKIE_REGEXES) {
-            Pattern p = Pattern.compile(regex, Pattern.DOTALL);
-            Matcher m = p.matcher(mOutput);
-            if (m.find()) {
-                mCookie = m.group(1).trim();
-                fetchPage();
+        Pattern regex = Pattern.compile(
+                "<li\\s[^>]+?http:\\/\\/schema\\.org\\/Person", Pattern.DOTALL);
+        Matcher m = regex.matcher(output);
+
+        while (m.find()) {
+            if (people.size() == maxResults) {
                 break;
             }
+
+            // Find section of HTML with contact information
+            String section = extractXmlTag(output, m.start(), m.end(), "li");
+
+            // Skip entries with no phone number
+            if (section.contains("has-no-phone-icon")) {
+                continue;
+            }
+
+            String name = unHtml(extractXmlRegex(section,
+                    "<span[^>]+?itemprop=\"name\">", "span"));
+
+            if (name == null) {
+                continue;
+            }
+
+            // Address
+            String addrCountry = unHtml(extractXmlRegex(section,
+                    "<span[^>]+?itemprop=\"addressCountry\">", "span"));
+            String addrState = unHtml(extractXmlRegex(section,
+                    "<span[^>]+?itemprop=\"addressRegion\">", "span"));
+            String addrCity = unHtml(extractXmlRegex(section,
+                    "<span[^>]+?itemprop=\"addressLocality\">", "span"));
+
+            StringBuilder sb = new StringBuilder();
+
+            if (addrCity != null) {
+                sb.append(addrCity);
+            }
+            if (addrState != null) {
+                if (sb.length() > 0) {
+                    sb.append(", ");
+                }
+                sb.append(addrState);
+            }
+            if (addrCountry != null) {
+                if (sb.length() > 0) {
+                    sb.append(", ");
+                }
+                sb.append(addrCountry);
+            }
+
+            // Website
+            Pattern p = Pattern.compile("href=\"(.+?)\"");
+            Matcher m2 = p.matcher(section);
+            String website = null;
+            if (m2.find()) {
+                website = "http://www.whitepages.com" + m2.group(1);
+            }
+
+            // Phone number is on profile page, so skip if we can't get the
+            // website
+            if (website == null) {
+                continue;
+            }
+
+            String profile = httpGet(website);
+            String phoneNumber = unHtml(extractXmlRegex(profile,
+                    "<li[^>]+?class=\"no-overflow tel\">", "li"));
+            String address = parseAddressUnitedStates(profile);
+
+            if (phoneNumber == null) {
+                Log.e(TAG,
+                        "Phone number is null. Either cookie is bad or regex is broken");
+                continue;
+            }
+
+            ContactInfo info = new ContactInfo();
+            info.name = name;
+            info.city = sb.toString();
+            info.address = address;
+            info.formattedNumber = phoneNumber;
+            info.website = website;
+
+            people.add(info);
         }
+
+        return people.toArray(new ContactInfo[people.size()]);
     }
 
-    private String httpGet(String url) throws IOException {
-        String[] split = url.split("=");
-        Log.d(TAG, "Fetching " + split[0] + "="
-                + MoreStrings.toSafeString(split[1]));
+    private static String extractXmlRegex(String str, String regex, String tag) {
+        Pattern p = Pattern.compile(regex, Pattern.DOTALL);
+        Matcher m = p.matcher(str);
+        if (m.find()) {
+            return extractXmlTag(str, m.start(), m.end(), tag);
+        }
+        return null;
+    }
 
+    private static String extractXmlTag(String str, int realBegin, int begin,
+            String tag) {
+        int end = begin;
+        int tags = 1;
+        int maxLoop = 30;
+
+        while (tags > 0) {
+            end = str.indexOf(tag, end + 1);
+            if (end < 0 || maxLoop < 0) {
+                break;
+            }
+
+            if (str.charAt(end - 1) == '/'
+                    && str.charAt(end + tag.length()) == '>') {
+                tags--;
+            } else if (str.charAt(end - 1) == '<') {
+                tags++;
+            }
+
+            maxLoop--;
+        }
+
+        int realEnd = str.indexOf(">", end) + 1;
+
+        if (tags != 0) {
+            Log.e(TAG, "Failed to extract tag <" + tag + "> from XML/HTML");
+            return null;
+        }
+
+        return str.substring(realBegin, realEnd);
+    }
+
+    private static String unHtml(String html) {
+        if (html == null) {
+            return null;
+        }
+
+        return Html.fromHtml(html).toString().trim();
+    }
+
+    public static ContactInfo reverseLookup(Context context, String number)
+            throws IOException {
+        String provider = LookupSettings.getReverseLookupProvider(context);
+
+        String lookupUrl = null;
+        if (LookupSettings.RLP_WHITEPAGES.equals(provider)) {
+            lookupUrl = NEARBY_URL_UNITED_STATES;
+        } else if (LookupSettings.RLP_WHITEPAGES_CA.equals(provider)) {
+            lookupUrl = NEARBY_URL_CANADA;
+        }
+        String newLookupUrl = lookupUrl + number;
+
+        String output = httpGet(newLookupUrl);
+
+        //
+
+        String name = null;
+        String phoneNumber = null;
+        String address = null;
+
+        if (LookupSettings.RLP_WHITEPAGES.equals(provider)) {
+            name = parseNameUnitedStates(output);
+            phoneNumber = parseNumberUnitedStates(output);
+            address = parseAddressUnitedStates(output);
+        } else if (LookupSettings.RLP_WHITEPAGES_CA.equals(provider)) {
+            name = parseNameCanada(output);
+            // Canada's WhitePages does not provide a formatted number
+            address = parseAddressCanada(output);
+        }
+
+        ContactInfo info = new ContactInfo();
+        info.name = name;
+        info.address = address;
+        info.formattedNumber = phoneNumber != null ? phoneNumber : number;
+        info.website = lookupUrl + info.formattedNumber;
+
+        return info;
+    }
+
+    private static String httpGet(String url) throws IOException {
         HttpClient client = new DefaultHttpClient();
         HttpGet get = new HttpGet(url);
 
@@ -116,10 +285,30 @@ public class WhitePagesApi {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         response.getEntity().writeTo(out);
 
-        return new String(out.toByteArray());
+        String output = new String(out.toByteArray());
+
+        // If we can find a new cookie, use it
+        Pattern p = Pattern.compile(COOKIE_REGEX, Pattern.DOTALL);
+        Matcher m = p.matcher(output);
+        if (m.find()) {
+            mCookie = m.group(1).trim();
+            Log.v(TAG, "Got new cookie");
+        }
+
+        // If we hit a page with a <meta> refresh and the error URL, reload. If
+        // this results in infinite recursion, then whatever. The thread is
+        // killed after 10 seconds.
+        p = Pattern.compile("<meta[^>]+http-equiv=\"refresh\"", Pattern.DOTALL);
+        m = p.matcher(output);
+        if (m.find() && output.contains("distil_r_captcha.html")) {
+            Log.w(TAG, "Got <meta> refresh. Reloading...");
+            return httpGet(url);
+        }
+
+        return output;
     }
 
-    private String parseNameUnitedStates() {
+    private static String parseNameUnitedStates(String output) {
         Matcher m;
 
         Pattern regexName = Pattern
@@ -127,7 +316,7 @@ public class WhitePagesApi {
                         Pattern.DOTALL);
         String name = null;
 
-        m = regexName.matcher(mOutput);
+        m = regexName.matcher(output);
         if (m.find()) {
             name = m.group(1).trim();
         }
@@ -138,7 +327,7 @@ public class WhitePagesApi {
                     "<span\\s*class=\"subtitle.*?>\\s*\n?(.*?)\n?\\s*</span>",
                     Pattern.DOTALL);
 
-            m = regexSummary.matcher(mOutput);
+            m = regexSummary.matcher(output);
             if (m.find()) {
                 name = m.group(1).trim();
             }
@@ -151,14 +340,14 @@ public class WhitePagesApi {
         return name;
     }
 
-    private String parseNameCanada() {
+    private static String parseNameCanada(String output) {
         Matcher m;
 
         Pattern regexName = Pattern.compile(
                 "(<li\\s+class=\"listing_info\">.*?</li>)", Pattern.DOTALL);
         String name = null;
 
-        m = regexName.matcher(mOutput);
+        m = regexName.matcher(output);
         if (m.find()) {
             name = m.group(1).trim();
         }
@@ -170,14 +359,14 @@ public class WhitePagesApi {
         return name;
     }
 
-    private String parseNumberUnitedStates() {
+    private static String parseNumberUnitedStates(String output) {
         Matcher m;
 
         Pattern regexPhoneNumber = Pattern.compile(
                 "Full Number:</span>([0-9\\-\\+\\(\\)]+)</li>", Pattern.DOTALL);
         String phoneNumber = null;
 
-        m = regexPhoneNumber.matcher(mOutput);
+        m = regexPhoneNumber.matcher(output);
         if (m.find()) {
             phoneNumber = m.group(1).trim();
         }
@@ -185,7 +374,7 @@ public class WhitePagesApi {
         return phoneNumber;
     }
 
-    private String parseAddressUnitedStates() {
+    private static String parseAddressUnitedStates(String output) {
         Matcher m;
 
         String regexBase = "<span\\s+class=\"%s[^\"]+\"\\s*>([^<]*)</span>";
@@ -201,17 +390,17 @@ public class WhitePagesApi {
         String addressSecondary = null;
         String addressLocation = null;
 
-        m = regexAddressPrimary.matcher(mOutput);
+        m = regexAddressPrimary.matcher(output);
         if (m.find()) {
             addressPrimary = m.group(1).trim();
         }
 
-        m = regexAddressSecondary.matcher(mOutput);
+        m = regexAddressSecondary.matcher(output);
         if (m.find()) {
             addressSecondary = m.group(1).trim();
         }
 
-        m = regexAddressLocation.matcher(mOutput);
+        m = regexAddressLocation.matcher(output);
         if (m.find()) {
             addressLocation = m.group(1).trim();
         }
@@ -238,7 +427,7 @@ public class WhitePagesApi {
         return address;
     }
 
-    private String parseAddressCanada() {
+    private static String parseAddressCanada(String output) {
         Matcher m;
 
         Pattern regexAddress = Pattern
@@ -247,56 +436,22 @@ public class WhitePagesApi {
                         Pattern.DOTALL);
         String address = null;
 
-        m = regexAddress.matcher(mOutput);
+        m = regexAddress.matcher(output);
         if (m.find()) {
             address = m.group(1).trim();
         }
 
         if (address != null) {
-            address = Html.fromHtml(address).toString().replace("\n", ", ").trim();
+            address = Html.fromHtml(address).toString().replace("\n", ", ")
+                    .trim();
         }
 
         return address;
     }
 
-    private void buildContactInfo() {
-        Matcher m;
-
-        String name = null;
-        String phoneNumber = null;
-        String address = null;
-
-        if (mProvider.equals(LookupSettings.RLP_WHITEPAGES)) {
-            name = parseNameUnitedStates();
-            phoneNumber = parseNumberUnitedStates();
-            address = parseAddressUnitedStates();
-        } else if (mProvider.equals(LookupSettings.RLP_WHITEPAGES_CA)) {
-            name = parseNameCanada();
-            // Canada's WhitePages does not provide a formatted number
-            address = parseAddressCanada();
-        }
-
-        ContactInfo info = new ContactInfo();
-        info.name = name;
-        info.address = address;
-        info.formattedNumber = phoneNumber != null ? phoneNumber : mNumber;
-        info.website = mLookupUrl + info.formattedNumber;
-        mInfo = info;
-    }
-
-    public ContactInfo getContactInfo() throws IOException {
-        if (mInfo == null) {
-            fetchPage();
-            findUuidAndReload();
-
-            buildContactInfo();
-        }
-
-        return mInfo;
-    }
-
     public static class ContactInfo {
         String name;
+        String city;
         String address;
         String formattedNumber;
         String website;

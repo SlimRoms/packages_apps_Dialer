@@ -27,10 +27,10 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DialerExtendedPhoneDirectoriesManager
+public class ExtendedLookupDirectories
         implements ExtendedPhoneDirectoriesManager {
     public static final String TAG =
-            DialerExtendedPhoneDirectoriesManager.class.getSimpleName();
+            ExtendedLookupDirectories.class.getSimpleName();
 
     /**
      * Return a list of extended directories to add. May return null if no directories are to be
@@ -40,9 +40,25 @@ public class DialerExtendedPhoneDirectoriesManager
     public List<DirectoryPartition> getExtendedDirectories(Context context) {
         ArrayList<DirectoryPartition> list = new ArrayList<DirectoryPartition>();
 
+        // The directories are shown in reverse order, so insert forward lookup
+        // last to make it show up at the top
+
+        if (LookupSettings.isPeopleLookupEnabled(context)) {
+            DirectoryPartition dp = new DirectoryPartition(false, true);
+            dp.setContentUri(LookupProvider.PEOPLE_LOOKUP_URI.toString());
+            dp.setLabel(context.getString(R.string.people));
+            dp.setPriorityDirectory(false);
+            dp.setPhotoSupported(true);
+            dp.setDisplayNumber(false);
+            dp.setResultLimit(3);
+            list.add(dp);
+        } else {
+            Log.i(TAG, "Forward lookup (people) is disabled");
+        }
+
         if (LookupSettings.isForwardLookupEnabled(context)) {
             DirectoryPartition dp = new DirectoryPartition(false, true);
-            dp.setContentUri(DialerProvider.FORWARD_LOOKUP_URI.toString());
+            dp.setContentUri(LookupProvider.NEARBY_LOOKUP_URI.toString());
             dp.setLabel(context.getString(R.string.nearby_places));
             dp.setPriorityDirectory(false);
             dp.setPhotoSupported(true);
@@ -50,7 +66,7 @@ public class DialerExtendedPhoneDirectoriesManager
             dp.setResultLimit(3);
             list.add(dp);
         } else {
-            Log.i(TAG, "Forward lookup is disabled");
+            Log.i(TAG, "Forward lookup (nearby places) is disabled");
         }
 
         return list;

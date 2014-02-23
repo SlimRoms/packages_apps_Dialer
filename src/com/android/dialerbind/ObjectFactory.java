@@ -23,7 +23,6 @@ import android.content.Context;
 import com.android.dialer.calllog.CallLogAdapter;
 import com.android.dialer.calllog.ContactInfoHelper;
 import com.android.dialer.service.CachedNumberLookupService;
-import com.android.dialer.service.CachedNumberLookupServiceImpl;
 
 /**
  * Default static binding for various objects.
@@ -31,7 +30,8 @@ import com.android.dialer.service.CachedNumberLookupServiceImpl;
 public class ObjectFactory {
 
     public static CachedNumberLookupService newCachedNumberLookupService() {
-        return new CachedNumberLookupServiceImpl();
+        // no-op
+        return null;
     }
 
     public static CallLogAdapter newCallLogAdapter(Context context, CallFetcher callFetcher,
