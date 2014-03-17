@@ -16,6 +16,7 @@
 
 package com.android.dialer.lookup;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -63,81 +64,42 @@ public final class LookupSettings {
     }
 
     public static String getForwardLookupProvider(Context context) {
-        upgradeFProviders(context);
-
-        String provider = getString(context,
-                Settings.System.FORWARD_LOOKUP_PROVIDER);
-
-        if (provider == null) {
-            putString(context,
-                    Settings.System.FORWARD_LOOKUP_PROVIDER, FLP_DEFAULT);
-
-            provider = getString(context,
-                    Settings.System.FORWARD_LOOKUP_PROVIDER);
-        }
+        String provider = getLookupProvider(context,
+                Settings.System.FORWARD_LOOKUP_PROVIDER, FLP_DEFAULT);
 
         return provider;
     }
 
     public static String getPeopleLookupProvider(Context context) {
-        upgradePProviders(context);
-
-        String provider = getString(context,
-                Settings.System.PEOPLE_LOOKUP_PROVIDER);
-
-        if (provider == null) {
-            putString(context,
-                    Settings.System.PEOPLE_LOOKUP_PROVIDER, PLP_DEFAULT);
-
-            provider = getString(context,
-                    Settings.System.PEOPLE_LOOKUP_PROVIDER);
-        }
+        String provider = getLookupProvider(context,
+                Settings.System.PEOPLE_LOOKUP_PROVIDER, PLP_DEFAULT);
 
         return provider;
     }
 
     public static String getReverseLookupProvider(Context context) {
-        upgradeRProviders(context);
+        String provider = getLookupProvider(context,
+                Settings.System.REVERSE_LOOKUP_PROVIDER, RLP_DEFAULT);
 
-        String provider = getString(context,
-                Settings.System.REVERSE_LOOKUP_PROVIDER);
-
-        if (provider == null) {
-            putString(context,
+        if ("Google".equals(provider)) {
+            Settings.System.putString(context.getContentResolver(),
                     Settings.System.REVERSE_LOOKUP_PROVIDER, RLP_DEFAULT);
-
-            provider = getString(context,
-                    Settings.System.REVERSE_LOOKUP_PROVIDER);
+            provider = RLP_DEFAULT;
         }
 
         return provider;
     }
 
-    private static void upgradeFProviders(Context context) {
-        String provider = getString(context,
-                Settings.System.FORWARD_LOOKUP_PROVIDER);
-    }
+    private static String getLookupProvider(Context context,
+            String key, String defaultValue) {
+        ContentResolver cr = context.getContentResolver();
+        String provider = Settings.System.getString(cr, key);
 
-    private static void upgradePProviders(Context context) {
-        String provider = getString(context,
-                Settings.System.PEOPLE_LOOKUP_PROVIDER);
-    }
-
-    private static void upgradeRProviders(Context context) {
-        String provider = getString(context,
-                Settings.System.REVERSE_LOOKUP_PROVIDER);
-
-        if ("Google".equals(provider)) {
-            putString(context,
-                    Settings.System.REVERSE_LOOKUP_PROVIDER, RLP_DEFAULT);
+        if (provider == null) {
+            Settings.System.putString(cr, key, defaultValue);
+            return defaultValue;
         }
-    }
 
-    private static String getString(Context context, String key) {
-        return Settings.System.getString(context.getContentResolver(), key);
-    }
-
-    private static void putString(Context context, String key, String value) {
-        Settings.System.putString(context.getContentResolver(), key, value);
+        return provider;
     }
 }
