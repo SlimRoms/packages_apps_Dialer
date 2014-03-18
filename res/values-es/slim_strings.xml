@@ -52,4 +52,9 @@
 
     <string name="menu_add_to_blacklist">Añadir a lista negra</string>
     <string name="toast_added_to_blacklist">%s añadido a lista negra.</string>
+
+    <!-- Forward lookup -->
+    <string name="nearby_places">Lugares cercanos</string>
+    <string name="people">Personas</string>
+
 </resources>
