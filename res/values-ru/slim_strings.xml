@@ -51,6 +51,7 @@
 
     <!-- Forward lookup -->
     <string name="nearby_places">Места неподалеку</string>
+    <string name="people">Люди</string>
 
     <string name="dialpad_2_2_letters">АБВГ</string>
     <string name="dialpad_3_2_letters">ДЕЖЗ</string>
