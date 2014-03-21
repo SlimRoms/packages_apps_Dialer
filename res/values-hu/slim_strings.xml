@@ -55,4 +55,5 @@
 
     <!-- Forward lookup -->
     <string name="nearby_places">Közeli helyek</string>
+    <string name="people">Személy</string>
 </resources>
