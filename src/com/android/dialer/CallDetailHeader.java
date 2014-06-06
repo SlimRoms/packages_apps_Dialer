@@ -17,18 +17,15 @@
 package com.android.dialer;
 
 import android.app.Activity;
-import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.Intent;
-import android.content.Loader;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract.Intents.Insert;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Contacts;
-import android.provider.ContactsContract.DisplayNameSources;
-import android.provider.ContactsContract.Intents.Insert;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -42,19 +39,25 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Loader;
+
 import com.android.contacts.common.CallUtil;
 import com.android.contacts.common.ClipboardUtils;
 import com.android.contacts.common.ContactPhotoManager;
+import com.android.contacts.common.ContactPhotoManager.DefaultImageRequest;
 import com.android.contacts.common.model.Contact;
 import com.android.contacts.common.model.ContactLoader;
 import com.android.contacts.common.format.FormatUtils;
 import com.android.contacts.common.util.Constants;
 import com.android.contacts.common.util.UriUtils;
-import com.android.dialer.calllog.PhoneNumberHelper;
+import com.android.dialer.calllog.PhoneNumberDisplayHelper;
 import com.android.dialer.calllog.PhoneNumberUtilsWrapper;
 
+import android.provider.ContactsContract.DisplayNameSources;
+
 public class CallDetailHeader {
-    private static final String TAG = "CallDetailHeader";
+    private static final String TAG = "CallDetail";
 
     private static final int LOADER_ID = 0;
     private static final String BUNDLE_CONTACT_URI_EXTRA = "contact_uri_extra";
@@ -64,7 +67,7 @@ public class CallDetailHeader {
 
     private Activity mActivity;
     private Resources mResources;
-    private PhoneNumberHelper mPhoneNumberHelper;
+    private PhoneNumberDisplayHelper mPhoneNumberDisplayHelper;
     private ContactPhotoManager mContactPhotoManager;
 
     private String mNumber;
@@ -124,10 +127,39 @@ public class CallDetailHeader {
         }
     };
 
-    public CallDetailHeader(Activity activity, PhoneNumberHelper phoneNumberHelper) {
+    private final LoaderCallbacks<Contact> mLoaderCallbacks = new LoaderCallbacks<Contact>() {
+        @Override
+        public void onLoaderReset(Loader<Contact> loader) {
+        }
+
+        @Override
+        public void onLoadFinished(Loader<Contact> loader, Contact data) {
+            final Intent intent = new Intent(Intent.ACTION_INSERT_OR_EDIT);
+            intent.setType(Contacts.CONTENT_ITEM_TYPE);
+            if (data.getDisplayNameSource() >= DisplayNameSources.ORGANIZATION) {
+                intent.putExtra(Insert.NAME, data.getDisplayName());
+            }
+            intent.putExtra(Insert.DATA, data.getContentValues());
+            bindContactPhotoAction(intent, R.drawable.ic_add_contact_holo_dark,
+                    mResources.getString(R.string.description_add_contact));
+        }
+
+        @Override
+        public Loader<Contact> onCreateLoader(int id, Bundle args) {
+            final Uri contactUri = args.getParcelable(BUNDLE_CONTACT_URI_EXTRA);
+            if (contactUri == null) {
+                Log.wtf(TAG, "No contact lookup uri provided.");
+            }
+            return new ContactLoader(mActivity, contactUri,
+                    false /* loadGroupMetaData */, false /* loadInvitableAccountTypes */,
+                    false /* postViewNotification */, true /* computeFormattedPhoneNumber */);
+        }
+    };
+
+    public CallDetailHeader(Activity activity, PhoneNumberDisplayHelper phoneNumberHelper) {
         mActivity = activity;
         mResources = activity.getResources();
-        mPhoneNumberHelper = phoneNumberHelper;
+        mPhoneNumberDisplayHelper = phoneNumberHelper;
         mContactPhotoManager = ContactPhotoManager.getInstance(activity);
 
         mHeaderTextView = (TextView) activity.findViewById(R.id.header_text);
@@ -198,35 +230,6 @@ public class CallDetailHeader {
         }
     }
 
-    private final LoaderCallbacks<Contact> mLoaderCallbacks = new LoaderCallbacks<Contact>() {
-        @Override
-        public void onLoaderReset(Loader<Contact> loader) {
-        }
-
-        @Override
-        public void onLoadFinished(Loader<Contact> loader, Contact data) {
-            final Intent intent = new Intent(Intent.ACTION_INSERT_OR_EDIT);
-            intent.setType(Contacts.CONTENT_ITEM_TYPE);
-            if (data.getDisplayNameSource() >= DisplayNameSources.ORGANIZATION) {
-                intent.putExtra(Insert.NAME, data.getDisplayName());
-            }
-            intent.putExtra(Insert.DATA, data.getContentValues());
-            bindContactPhotoAction(intent, R.drawable.ic_add_contact_holo_dark,
-                    mResources.getString(R.string.description_add_contact));
-        }
-
-        @Override
-        public Loader<Contact> onCreateLoader(int id, Bundle args) {
-            final Uri contactUri = args.getParcelable(BUNDLE_CONTACT_URI_EXTRA);
-            if (contactUri == null) {
-                Log.wtf(TAG, "No contact lookup uri provided.");
-            }
-            return new ContactLoader(mActivity, contactUri,
-                    false /* loadGroupMetaData */, false /* loadInvitableAccountTypes */,
-                    false /* postViewNotification */, true /* computeFormattedPhoneNumber */);
-        }
-    };
-
     public void updateViews(String number, int numberPresentation, Data data) {
         // Cache the details about the phone number.
         final PhoneNumberUtilsWrapper phoneUtils = new PhoneNumberUtilsWrapper();
@@ -255,17 +258,7 @@ public class CallDetailHeader {
             nameOrNumber = dataNumber;
         }
 
-        if (UriUtils.isEncodedContactUri(contactUri)) {
-            // If this is a json encoded URI, there is no local contact
-            // so give the user the ability to add it as new contact.
-            final Bundle bundle = new Bundle(1);
-            bundle.putParcelable(BUNDLE_CONTACT_URI_EXTRA, contactUri);
-            mActivity.getLoaderManager().initLoader(LOADER_ID, bundle, mLoaderCallbacks);
-            mainActionIntent = null;
-            mainActionIcon = R.drawable.ic_add_contact_holo_dark;
-            mainActionDescription = mResources.getString(R.string.description_add_contact);
-            skipBind = true;
-        } else if (contactUri != null) {
+        if (contactUri != null && !UriUtils.isEncodedContactUri(contactUri)) {
             mainActionIntent = new Intent(Intent.ACTION_VIEW, contactUri);
             // This will launch People's detail contact screen, so we probably want to
             // treat it as a separate People task.
@@ -274,6 +267,14 @@ public class CallDetailHeader {
             mainActionIcon = R.drawable.ic_contacts_holo_dark;
             mainActionDescription =
                 mResources.getString(R.string.description_view_contact, nameOrNumber);
+        } else if (UriUtils.isEncodedContactUri(contactUri)) {
+            final Bundle bundle = new Bundle(1);
+            bundle.putParcelable(BUNDLE_CONTACT_URI_EXTRA, contactUri);
+            mActivity.getLoaderManager().initLoader(LOADER_ID, bundle, mLoaderCallbacks);
+            mainActionIntent = null;
+            mainActionIcon = R.drawable.ic_add_contact_holo_dark;
+            mainActionDescription = mResources.getString(R.string.description_add_contact);
+            skipBind = true;
         } else if (isVoicemailNumber) {
             mainActionIntent = null;
             mainActionIcon = 0;
@@ -313,7 +314,7 @@ public class CallDetailHeader {
         // This action allows to call the number that places the call.
         if (mCanPlaceCallsTo) {
             final CharSequence displayNumber =
-                mPhoneNumberHelper.getDisplayNumber(
+                mPhoneNumberDisplayHelper.getDisplayNumber(
                         dataNumber, data.getNumberPresentation(), data.getFormattedNumber());
 
             ViewEntry entry = new ViewEntry(
@@ -377,9 +378,12 @@ public class CallDetailHeader {
     }
 
     /** Load the contact photos and places them in the corresponding views. */
-    public void loadContactPhotos(Uri photoUri) {
+    public void loadContactPhotos(Uri photoUri, String displayName, String lookupKey,
+            int contactType) {
+        final DefaultImageRequest request = new DefaultImageRequest(displayName, lookupKey,
+                contactType);
         mContactPhotoManager.loadPhoto(mContactBackgroundView, photoUri,
-                mContactBackgroundView.getWidth(), true);
+                mContactBackgroundView.getWidth(), true, request);
     }
 
     public boolean canEditNumberBeforeCall() {
