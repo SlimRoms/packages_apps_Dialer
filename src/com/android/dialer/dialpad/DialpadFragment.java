@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -33,9 +34,11 @@ import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemProperties;
+import android.os.UserHandle;
 import android.provider.Contacts.People;
 import android.provider.Contacts.Phones;
 import android.provider.Contacts.PhonesColumns;
@@ -96,6 +99,11 @@ public class DialpadFragment extends Fragment
         DialpadKeyButton.OnPressedListener {
     private static final String TAG = DialpadFragment.class.getSimpleName();
 
+    private Context mContext;
+
+    private SettingsObserver mSettingsObserver;
+
+    private View mFragmentView;
     /**
      * This interface allows the DialpadFragment to tell its hosting Activity when and when not
      * to display the "dial" button. While this is logically part of the DialpadFragment, the
@@ -346,6 +354,9 @@ public class DialpadFragment extends Fragment
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
+
+        mContext = getActivity().getApplicationContext();
+
         mFirstLaunch = true;
         mCurrentCountryIso = GeoUtil.getCurrentCountryIso(getActivity());
 
@@ -362,15 +373,18 @@ public class DialpadFragment extends Fragment
         if (state != null) {
             mDigitsFilledByIntent = state.getBoolean(PREF_DIGITS_FILLED_BY_INTENT);
         }
+
+        mSettingsObserver = new SettingsObserver(new Handler());
+        mSettingsObserver.observe();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
-        final View fragmentView = inflater.inflate(R.layout.dialpad_fragment, container,
+        mFragmentView = inflater.inflate(R.layout.dialpad_fragment, container,
                 false);
-        fragmentView.buildLayer();
+        mFragmentView.buildLayer();
 
-        final ViewTreeObserver vto = fragmentView.getViewTreeObserver();
+        final ViewTreeObserver vto = mFragmentView.getViewTreeObserver();
         // Adjust the translation of the DialpadFragment in a preDrawListener instead of in
         // DialtactsActivity, because at the point in time when the DialpadFragment is added,
         // its views have not been laid out yet.
@@ -380,11 +394,11 @@ public class DialpadFragment extends Fragment
             public boolean onPreDraw() {
 
                 if (isHidden()) return true;
-                if (mAdjustTranslationForAnimation && fragmentView.getTranslationY() == 0) {
-                    ((DialpadSlidingLinearLayout) fragmentView).setYFraction(
+                if (mAdjustTranslationForAnimation && mFragmentView.getTranslationY() == 0) {
+                    ((DialpadSlidingLinearLayout) mFragmentView).setYFraction(
                             DIALPAD_SLIDE_FRACTION);
                 }
-                final ViewTreeObserver vto = fragmentView.getViewTreeObserver();
+                final ViewTreeObserver vto = mFragmentView.getViewTreeObserver();
                 vto.removeOnPreDrawListener(this);
                 return true;
             }
@@ -396,8 +410,8 @@ public class DialpadFragment extends Fragment
         // Load up the resources for the text field.
         Resources r = getResources();
 
-        mDigitsContainer = fragmentView.findViewById(R.id.digits_container);
-        mDigits = (EditText) fragmentView.findViewById(R.id.digits);
+        mDigitsContainer = mFragmentView.findViewById(R.id.digits_container);
+        mDigits = (EditText) mFragmentView.findViewById(R.id.digits);
         mDigits.setKeyListener(UnicodeDialerKeyListener.INSTANCE);
         mDigits.setOnClickListener(this);
         mDigits.setOnKeyListener(this);
@@ -405,18 +419,18 @@ public class DialpadFragment extends Fragment
         mDigits.addTextChangedListener(this);
         PhoneNumberFormatter.setPhoneNumberFormattingTextWatcher(getActivity(), mDigits);
         // Check for the presence of the keypad
-        View oneButton = fragmentView.findViewById(R.id.one);
+        View oneButton = mFragmentView.findViewById(R.id.one);
         if (oneButton != null) {
-            setupKeypad(fragmentView);
+            setupKeypad(mFragmentView);
         }
 
-        mDelete = fragmentView.findViewById(R.id.deleteButton);
+        mDelete = mFragmentView.findViewById(R.id.deleteButton);
         if (mDelete != null) {
             mDelete.setOnClickListener(this);
             mDelete.setOnLongClickListener(this);
         }
 
-        mSpacer = fragmentView.findViewById(R.id.spacer);
+        mSpacer = mFragmentView.findViewById(R.id.spacer);
         mSpacer.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -428,7 +442,7 @@ public class DialpadFragment extends Fragment
             }
         });
 
-        mDialpad = fragmentView.findViewById(R.id.dialpad);  // This is null in landscape mode.
+        mDialpad = mFragmentView.findViewById(R.id.dialpad);  // This is null in landscape mode.
 
         // In landscape we put the keyboard in phone mode.
         if (null == mDialpad) {
@@ -438,10 +452,10 @@ public class DialpadFragment extends Fragment
         }
 
         // Set up the "dialpad chooser" UI; see showDialpadChooser().
-        mDialpadChooser = (ListView) fragmentView.findViewById(R.id.dialpadChooser);
+        mDialpadChooser = (ListView) mFragmentView.findViewById(R.id.dialpadChooser);
         mDialpadChooser.setOnItemClickListener(this);
 
-        return fragmentView;
+        return mFragmentView;
     }
 
     @Override
@@ -622,6 +636,12 @@ public class DialpadFragment extends Fragment
 
         final Resources resources = getResources();
 
+        final int pixels = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.DIALKEY_PADDING, 0);
+        final float paddingToDp =
+                resources.getDisplayMetrics().density * pixels + 0.5f;
+        final int padding = (int) paddingToDp;
+
         DialpadKeyButton dialpadKey;
         TextView numberView;
         TextView lettersView;
@@ -631,6 +651,7 @@ public class DialpadFragment extends Fragment
             dialpadKey = (DialpadKeyButton) fragmentView.findViewById(buttonIds[i]);
             dialpadKey.setLayoutParams(new TableRow.LayoutParams(
                     TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
+            dialpadKey.setPadding(0, padding, 0, padding);
             dialpadKey.setOnPressedListener(this);
             numberView = (TextView) dialpadKey.findViewById(R.id.dialpad_key_number);
             lettersView = (TextView) dialpadKey.findViewById(R.id.dialpad_key_letters);
@@ -779,6 +800,12 @@ public class DialpadFragment extends Fragment
             mClearDigitsOnStop = false;
             clearDialpad();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mContext.getContentResolver().unregisterContentObserver(mSettingsObserver);
     }
 
     @Override
@@ -1710,5 +1737,33 @@ public class DialpadFragment extends Fragment
 
     public void setYFraction(float yFraction) {
         ((DialpadSlidingLinearLayout) getView()).setYFraction(yFraction);
+    }
+
+    /**
+     * Settingsobserver to listen for dialpad padding changes
+     */
+    private class SettingsObserver extends ContentObserver {
+        SettingsObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            final ContentResolver resolver = mContext.getContentResolver();
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DIALKEY_PADDING),
+                    false, this);
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+            update();
+        }
+
+        public void update() {
+            if (mFragmentView != null) {
+                setupKeypad(mFragmentView);
+            }
+        }
     }
 }
