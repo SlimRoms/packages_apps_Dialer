@@ -16,7 +16,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="call_log_stats_title">Statistiky</string>
-    <string name="callStatsDetailTitle">Detaily volání</string>
+    <string name="callStatsDetailTitle">Detaily statistiky hovorů</string>
 
     <string name="call_stats">Statistiky hovoru</string>
     <string name="call_stats_refresh">Obnovit</string>
@@ -52,4 +52,8 @@
 
     <string name="menu_add_to_blacklist">Přidat na černou listinu</string>
     <string name="toast_added_to_blacklist">%s bylo přidáno na černou listinu.</string>
+
+    <!-- Forward lookup -->
+    <string name="nearby_places">Blízká místa</string>
+    <string name="people">Lidé</string>
 </resources>
