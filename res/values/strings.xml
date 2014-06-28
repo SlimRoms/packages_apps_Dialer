@@ -718,7 +718,7 @@
          card can be tapped to bring up a list of all numbers, or long pressed to start reordering
          [CHAR LIMIT=NONE]
     -->
-    <string name="contact_tooltip">Tap image to see all numbers or press and hold to reorder</string>
+    <string name="contact_tooltip">Tap dots to see all numbers or press and hold image to reorder</string>
 
     <!-- Content description for dismiss button on badge. [CHAR LIMIT=NONE] -->
     <string name="description_dismiss">Dismiss</string>
