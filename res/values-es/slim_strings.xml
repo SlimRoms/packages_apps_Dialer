@@ -17,7 +17,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="call_log_stats_title">Estadísticas</string>
-  <string name="callStatsDetailTitle">Detalles de estadísticas de llamada</string>
+  <string name="callStatsDetailTitle">Detalles de llamada</string>
   <string name="call_stats">Estadísticas de llamada</string>
   <string name="call_stats_refresh">Actualizar</string>
   <string name="activity_title_call_stats">Estadísticas de llamada</string>
@@ -31,22 +31,22 @@
   <string name="call_stats_missed_percent">Perdidas: <xliff:g id="percent">%d</xliff:g>%%</string>
   <string name="call_stats_header_total">Total: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
   <string name="call_stats_header_total_callsonly">Total: <xliff:g id="call_count">%s</xliff:g></string>
-  <string name="call_stats_filter_from">Fecha inicio</string>
-  <string name="call_stats_filter_to">Fecha fin</string>
-  <string name="call_stats_filter_picker_title">Rango del filtro</string>
+  <string name="call_stats_filter_from">Fecha inicial</string>
+  <string name="call_stats_filter_to">Fecha final</string>
+  <string name="call_stats_filter_picker_title">Rango</string>
   <string name="date_quick_selection">Selección rápida</string>
   <string name="date_qs_currentmonth">Mes actual</string>
   <string name="date_qs_currentquarter">Cuatrimestre actual</string>
   <string name="date_qs_currentyear">Año actual</string>
-  <string name="date_qs_lastweek">Última semana</string>
-  <string name="date_qs_lastmonth">Último mes</string>
-  <string name="date_qs_lastquarter">Último cuatrimestre</string>
-  <string name="date_qs_lastyear">Último año</string>
+  <string name="date_qs_lastweek">Ultima semana</string>
+  <string name="date_qs_lastmonth">Ultimo mes</string>
+  <string name="date_qs_lastquarter">Ultimo cuatrimestre</string>
+  <string name="date_qs_lastyear">Ultimo año</string>
   <string name="call_stats_date_filter">Ajustar rango de tiempo</string>
   <string name="call_stats_reset_filter">Restablecer rango de tiempo</string>
   <string name="call_stats_sort_by_duration">Ordenar por duración de llamada</string>
   <string name="call_stats_sort_by_count">Ordenar por número de llamdas</string>
-  <string name="menu_add_to_blacklist">Añadir a lista negra</string>
+  <string name="menu_add_to_blacklist">Añadir a la lista negra</string>
   <string name="toast_added_to_blacklist">%s añadido a lista negra.</string>
   <string name="nearby_places">Lugares cercanos</string>
   <string name="people">Personas</string>
