@@ -1033,8 +1033,8 @@ public class DialpadFragment extends AnalyticsFragment
                         // Voicemail is unavailable maybe because Airplane mode is turned on.
                         // Check the current status and show the most appropriate error message.
                         final boolean isAirplaneModeOn =
-                                Settings.System.getInt(getActivity().getContentResolver(),
-                                Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+                                Settings.Global.getInt(getActivity().getContentResolver(),
+                                Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
                         if (isAirplaneModeOn) {
                             DialogFragment dialogFragment = ErrorDialogFragment.newInstance(
                                     R.string.dialog_voicemail_airplane_mode_message);
