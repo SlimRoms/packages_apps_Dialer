@@ -46,8 +46,8 @@
   <string name="call_stats_reset_filter">Datumsbereich löschen</string>
   <string name="call_stats_sort_by_duration">Sortieren nach Anrufdauer</string>
   <string name="call_stats_sort_by_count">Sortieren nach Anrufanzahl</string>
-  <string name="menu_add_to_blacklist">Zur Blacklist hinzufügen</string>
-  <string name="toast_added_to_blacklist">%s zur Blacklist hinzugefügt.</string>
+  <string name="menu_add_to_blacklist">Zur Sperrliste hinzufügen</string>
+  <string name="toast_added_to_blacklist">%s zur Sperrliste hinzugefügt.</string>
   <string name="nearby_places">Nahegelegene Orte</string>
   <string name="people">Personen</string>
 </resources>
