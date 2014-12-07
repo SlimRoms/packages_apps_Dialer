@@ -17,7 +17,22 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="nearby_places">Endroits à proximité</string>
+  <string name="people">Personnes</string>
+  <string name="lookup_settings_label">Recherche de numéro de téléphone</string>
+  <string name="lookup_settings_description">Recherche à propos des numéros de téléphone inconnus</string>
   <string name="enable_forward_lookup_title">Recherche avancée</string>
   <string name="enable_forward_lookup_summary">Afficher les endroits à proximité lors de la recherche dans le dialer</string>
+  <string name="enable_people_lookup_title">Recherche de personnes</string>
+  <string name="enable_people_lookup_summary">Afficher les résultats Internet sur les personnes lors d\'une recherche dans le dialer</string>
   <string name="enable_reverse_lookup_title">Recherche inversée</string>
+  <string name="enable_reverse_lookup_summary">Rechercher des informations sur la personne lors d\'un appel entrant inconnu</string>
+  <string name="forward_lookup_provider_title">Fournisseur pour la recherche avancée</string>
+  <string name="people_lookup_provider_title">Fournisseur d\'informations sur les appelants</string>
+  <string name="reverse_lookup_provider_title">Fournisseur pour la recherche inversée</string>
+  <string name="cyngn_reverse_lookup_provider_name">Cyngn Chinois (CN)</string>
+  <string name="incall_vibration_category_title">Vibrations durant un appel</string>
+  <string name="incall_vibrate_outgoing_title">Vibrer au décrochage</string>
+  <string name="incall_vibrate_hangup_title">Vibrer au raccrochage</string>
+  <string name="incall_vibrate_45_title">Vibrer toutes les minutes</string>
+  <string name="incall_vibrate_45_summary">Vibrer à la 45ème seconde de chaque minute durant un appel sortant</string>
 </resources>
