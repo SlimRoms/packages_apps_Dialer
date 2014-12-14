@@ -30,6 +30,7 @@
   <string name="people_lookup_provider_title">Anbieter für Personensuche</string>
   <string name="reverse_lookup_provider_title">Anbieter für Rückwärtssuche</string>
   <string name="cyngn_reverse_lookup_provider_name">Cyngn Chinese (CN)</string>
+  <string name="incall_vibration_category_title">Vibrationseinstellungen</string>
   <string name="incall_vibrate_outgoing_title">Beim Antworten vibrieren</string>
   <string name="incall_vibrate_hangup_title">Beim Auflegen vibrieren</string>
   <string name="incall_vibrate_45_title">Jede Minute vibrieren</string>
