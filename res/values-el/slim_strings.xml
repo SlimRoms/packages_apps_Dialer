@@ -19,12 +19,16 @@
   <string name="nearby_places">Κοντινές τοποθεσίες</string>
   <string name="people">Άτομα</string>
   <string name="lookup_settings_label">Αναζήτηση τηλεφωνικού αριθμού</string>
+  <string name="lookup_settings_description">Αναζήτηση γιά άγνωστους αριθμούς τηλεφώνου</string>
   <string name="enable_forward_lookup_title">Προωθημένη αναζήτηση</string>
   <string name="enable_forward_lookup_summary">Εμφάνιση κοντινών τοποθεσιών κατά την αναζήτηση στην εφαρμογή του τηλεφώνου</string>
   <string name="enable_people_lookup_title">Αναζήτηση ατόμων</string>
   <string name="enable_people_lookup_summary">Εμφάνιση δικτυακών αποτελεσμάτων για τα άτομα κατά την αναζήτηση στην εφαρμογή του τηλεφώνου</string>
   <string name="enable_reverse_lookup_title">Αντίστροφη αναζήτηση</string>
   <string name="enable_reverse_lookup_summary">Αναζήτηση πληροφοριών σχετικά με το άτομο ή την τοποθεσία για άγνωστους αριθμούς στις εισερχόμενες κλήσεις</string>
+  <string name="forward_lookup_provider_title">Πάροχος προωθημένης αναζήτησης</string>
+  <string name="people_lookup_provider_title">Πάροχος αναζήτησης ατόμων</string>
+  <string name="reverse_lookup_provider_title">Πάροχος αντίστροφης αναζήτησης</string>
   <string name="cyngn_reverse_lookup_provider_name">Cyngn Κινέζικα (CN)</string>
   <string name="incall_vibration_category_title">Δόνηση κατά την κλήση</string>
   <string name="incall_vibrate_outgoing_title">Δόνηση στην απάντηση</string>
