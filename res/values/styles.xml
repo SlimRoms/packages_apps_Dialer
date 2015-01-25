@@ -79,7 +79,7 @@
         <item name="android:colorPrimary">@color/exposed_primary_text_dark</item>
         <item name="android:colorPrimaryDark">@color/exposed_secondary_text_light</item>
         <item name="dialpad_key_button_touch_tint">@color/dialer_dialpad_touch_tint</item>
-        <item name="android:colorControlActivated">@color/exposed_primary_text_dark</item>
+        <item name="android:colorControlActivated">@color/dialer_theme_color</item>
     </style>
 
     <!-- Action bar overflow menu icon. -->
