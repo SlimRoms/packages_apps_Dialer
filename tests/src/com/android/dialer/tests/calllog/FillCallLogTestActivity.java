@@ -37,7 +37,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.Switch;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -68,11 +68,11 @@ public class FillCallLogTestActivity extends Activity {
     private TextView mNumberTextView;
     private Button mAddButton;
     private ProgressBar mProgressBar;
-    private CheckBox mUseRandomNumbers;
+    private Switch mUseRandomNumbers;
     private RadioButton mCallTypeIncoming;
     private RadioButton mCallTypeMissed;
     private RadioButton mCallTypeOutgoing;
-    private CheckBox mCallTypeVideo;
+    private Switch mCallTypeVideo;
     private RadioButton mPresentationAllowed;
     private RadioButton mPresentationRestricted;
     private RadioButton mPresentationUnknown;
@@ -97,7 +97,7 @@ public class FillCallLogTestActivity extends Activity {
         mNumberTextView = (TextView) findViewById(R.id.number);
         mAddButton = (Button) findViewById(R.id.add);
         mProgressBar = (ProgressBar) findViewById(R.id.progress);
-        mUseRandomNumbers = (CheckBox) findViewById(R.id.use_random_numbers);
+        mUseRandomNumbers = (Switch) findViewById(R.id.use_random_numbers);
 
         mAddButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -125,7 +125,7 @@ public class FillCallLogTestActivity extends Activity {
         mCallTypeIncoming = (RadioButton) findViewById(R.id.call_type_incoming);
         mCallTypeMissed = (RadioButton) findViewById(R.id.call_type_missed);
         mCallTypeOutgoing = (RadioButton) findViewById(R.id.call_type_outgoing);
-        mCallTypeVideo = (CheckBox) findViewById(R.id.call_type_video);
+        mCallTypeVideo = (Switch) findViewById(R.id.call_type_video);
         mPresentationAllowed = (RadioButton) findViewById(R.id.presentation_allowed);
         mPresentationPayphone = (RadioButton) findViewById(R.id.presentation_payphone);
         mPresentationUnknown = (RadioButton) findViewById(R.id.presentation_unknown);

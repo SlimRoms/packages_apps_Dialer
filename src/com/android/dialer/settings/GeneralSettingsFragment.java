@@ -22,7 +22,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
-import android.preference.CheckBoxPreference;
+import android.preference.SwitchPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
@@ -53,8 +53,8 @@ public class GeneralSettingsFragment extends PreferenceFragment
     private Context mContext;
 
     private Preference mRingtonePreference;
-    private CheckBoxPreference mVibrateWhenRinging;
-    private CheckBoxPreference mPlayDtmfTone;
+    private SwitchPreference mVibrateWhenRinging;
+    private SwitchPreference mPlayDtmfTone;
     private Preference mRespondViaSms;
 
     private Runnable mRingtoneLookupRunnable;
@@ -78,8 +78,8 @@ public class GeneralSettingsFragment extends PreferenceFragment
         addPreferencesFromResource(R.xml.general_settings);
 
         mRingtonePreference = findPreference(BUTTON_RINGTONE_KEY);
-        mVibrateWhenRinging = (CheckBoxPreference) findPreference(BUTTON_VIBRATE_ON_RING);
-        mPlayDtmfTone = (CheckBoxPreference) findPreference(BUTTON_PLAY_DTMF_TONE);
+        mVibrateWhenRinging = (SwitchPreference) findPreference(BUTTON_VIBRATE_ON_RING);
+        mPlayDtmfTone = (SwitchPreference) findPreference(BUTTON_PLAY_DTMF_TONE);
         mRespondViaSms = findPreference(BUTTON_RESPOND_VIA_SMS_KEY);
 
         PreferenceCategory soundCategory = (PreferenceCategory) findPreference(CATEGORY_SOUNDS_KEY);
