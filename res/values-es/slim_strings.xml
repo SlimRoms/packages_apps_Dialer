@@ -21,4 +21,18 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="menu_add_to_blacklist">Añadir a la lista negra</string>
   <string name="toast_added_to_blacklist">%s añadido a lista negra.</string>
+  <string name="nearby_places">Lugares cercanos</string>
+  <string name="people">Personas</string>
+  <string name="lookup_settings_label">Buscar numero de teléfono</string>
+  <string name="lookup_settings_description">Buscar números de teléfono desconocidos</string>
+  <string name="enable_forward_lookup_title">Búsqueda directa</string>
+  <string name="enable_forward_lookup_summary">Mostrar lugares cercanos al buscar en el marcador</string>
+  <string name="enable_people_lookup_title">Buscar personas</string>
+  <string name="enable_people_lookup_summary">Mostrar resultados de personas al buscar en el marcador</string>
+  <string name="enable_reverse_lookup_title">Activar la búsqueda inversa</string>
+  <string name="enable_reverse_lookup_summary">Buscar información de la persona o ubicación cuando el remitente es desconocido</string>
+  <string name="forward_lookup_provider_title">Proveedor de búsqueda</string>
+  <string name="people_lookup_provider_title">Proveedor para buscar personas</string>
+  <string name="reverse_lookup_provider_title">Proveedor de búsqueda inversa</string>
+  <string name="cyngn_reverse_lookup_provider_name">Cyngn chino (CN)</string>
 </resources>

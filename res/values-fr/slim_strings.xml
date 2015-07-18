@@ -34,4 +34,10 @@
   <string name="forward_lookup_provider_title">Fournisseur de recherche avancée</string>
   <string name="people_lookup_provider_title">Fournisseur pour la recherche de personnes</string>
   <string name="reverse_lookup_provider_title">Fournisseur de recherche inversée</string>
+  <string name="incall_vibration_category_title">Vibrations durant un appel</string>
+  <string name="incall_vibrate_outgoing_title">Vibrer à la réponse</string>
+  <string name="vibrate_call_waiting">Vibrer pendant l\'attente</string>
+  <string name="incall_vibrate_hangup_title">Vibrer en fin d\'appel</string>
+  <string name="incall_vibrate_45_title">Vibrer chaque minute</string>
+  <string name="incall_vibrate_45_summary">Vibrer à la 45ème seconde de chaque minute durant un appel sortant</string>
 </resources>

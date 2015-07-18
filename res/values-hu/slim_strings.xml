@@ -21,4 +21,24 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="menu_add_to_blacklist">Hozzáadás a tiltólistához</string>
   <string name="toast_added_to_blacklist">%s hozzáadva a tiltólistához.</string>
+  <string name="nearby_places">Közeli helyek</string>
+  <string name="people">Személyek</string>
+  <string name="lookup_settings_label">Telefonszám keresése</string>
+  <string name="lookup_settings_description">Keresés ismeretlen telefonszámok esetén</string>
+  <string name="enable_forward_lookup_title">Címkeresés</string>
+  <string name="enable_forward_lookup_summary">Közeli helyek mutatása a tárcsázóban keresés közben</string>
+  <string name="enable_people_lookup_title">Személyek keresése</string>
+  <string name="enable_people_lookup_summary">Mutassa az online elérhető személyeket a tárcsázóban keresés közben</string>
+  <string name="enable_reverse_lookup_title">Fordított keresés engedélyezése</string>
+  <string name="enable_reverse_lookup_summary">Információ keresése személyekről vagy helyekről ismeretelen számoknál bejövő hívásoknál</string>
+  <string name="forward_lookup_provider_title">Címkeresési szolgáltató</string>
+  <string name="people_lookup_provider_title">Személy keresési szolgáltató</string>
+  <string name="reverse_lookup_provider_title">Névkeresési szolgáltató</string>
+  <string name="cyngn_reverse_lookup_provider_name">Cyngn Kínai (CN)</string>
+  <string name="incall_vibration_category_title">Rezeg hívás közben</string>
+  <string name="incall_vibrate_outgoing_title">Rezgés válasznál</string>
+  <string name="vibrate_call_waiting">Rezgés hívásvárakoztatásnál</string>
+  <string name="incall_vibrate_hangup_title">Rezeg hívás bontásakor</string>
+  <string name="incall_vibrate_45_title">Rezeg minden percben</string>
+  <string name="incall_vibrate_45_summary">Minden 45. másodpercben rezeg a kimenő hívások során</string>
 </resources>

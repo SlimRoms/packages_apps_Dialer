@@ -21,4 +21,24 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="menu_add_to_blacklist">Adicionar à lista negra</string>
   <string name="toast_added_to_blacklist">%s foi adicionado à lista negra.</string>
+  <string name="nearby_places">Locais próximos</string>
+  <string name="people">Pessoas</string>
+  <string name="lookup_settings_label">Pesquisa de números de telefone</string>
+  <string name="lookup_settings_description">Pesquisa de números de telefone desconhecidos</string>
+  <string name="enable_forward_lookup_title">Pesquisa direta</string>
+  <string name="enable_forward_lookup_summary">Mostrar lugares próximos ao pesquisar no teclado</string>
+  <string name="enable_people_lookup_title">Pesquisa de pessoas</string>
+  <string name="enable_people_lookup_summary">Mostrar resultados online para pessoas ao pesquisar no teclado</string>
+  <string name="enable_reverse_lookup_title">Pesquisa inversa</string>
+  <string name="enable_reverse_lookup_summary">Procurar informações sobre a pessoa ou lugar para números desconhecidos de chamadas recebidas</string>
+  <string name="forward_lookup_provider_title">Fornecedor de pesquisa direta</string>
+  <string name="people_lookup_provider_title">Fornecedor de pesquisa de pessoas</string>
+  <string name="reverse_lookup_provider_title">Fornecedor de pesquisa inversa</string>
+  <string name="cyngn_reverse_lookup_provider_name">Cyngn Chinês (CN)</string>
+  <string name="incall_vibration_category_title">Vibrar durante a chamada</string>
+  <string name="incall_vibrate_outgoing_title">Vibrar ao atender</string>
+  <string name="vibrate_call_waiting">Vibrar na chamada em espera</string>
+  <string name="incall_vibrate_hangup_title">Vibrar quando terminar chamada</string>
+  <string name="incall_vibrate_45_title">Vibrar a cada minuto</string>
+  <string name="incall_vibrate_45_summary">Vibrar aos 45 segundos de cada minuto durante chamadas efetuadas</string>
 </resources>
