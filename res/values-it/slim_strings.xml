@@ -35,4 +35,10 @@
   <string name="people_lookup_provider_title">Provider di ricerca persone</string>
   <string name="reverse_lookup_provider_title">Provider di ricerca inversa</string>
   <string name="cyngn_reverse_lookup_provider_name">Cyngn Cinese (CN)</string>
+  <string name="incall_vibration_category_title">Vibrazione chiamate in arrivo</string>
+  <string name="incall_vibrate_outgoing_title">Vibra alla risposta</string>
+  <string name="vibrate_call_waiting">Vibra per chiamata in attesa</string>
+  <string name="incall_vibrate_hangup_title">Vibra al termine della chiamata</string>
+  <string name="incall_vibrate_45_title">Vibra ogni minuto</string>
+  <string name="incall_vibrate_45_summary">Vibra al 45esimo secondo di ogni minuto durante le chiamate in uscita</string>
 </resources>

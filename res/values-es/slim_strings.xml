@@ -20,10 +20,10 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="menu_add_to_blacklist">Añadir a la lista negra</string>
-  <string name="toast_added_to_blacklist">%s añadido a lista negra.</string>
+  <string name="toast_added_to_blacklist">%s añadido a la lista negra.</string>
   <string name="nearby_places">Lugares cercanos</string>
   <string name="people">Personas</string>
-  <string name="lookup_settings_label">Buscar numero de teléfono</string>
+  <string name="lookup_settings_label">Buscar número de teléfono</string>
   <string name="lookup_settings_description">Buscar números de teléfono desconocidos</string>
   <string name="enable_forward_lookup_title">Búsqueda directa</string>
   <string name="enable_forward_lookup_summary">Mostrar lugares cercanos al buscar en el marcador</string>
@@ -35,4 +35,10 @@
   <string name="people_lookup_provider_title">Proveedor para buscar personas</string>
   <string name="reverse_lookup_provider_title">Proveedor de búsqueda inversa</string>
   <string name="cyngn_reverse_lookup_provider_name">Cyngn chino (CN)</string>
+  <string name="incall_vibration_category_title">Vibrar al sonar</string>
+  <string name="incall_vibrate_outgoing_title">Vibrar al responder</string>
+  <string name="vibrate_call_waiting">Vibrar con llamada en espera</string>
+  <string name="incall_vibrate_hangup_title">Vibrar al colgar</string>
+  <string name="incall_vibrate_45_title">Vibrar cada minuto</string>
+  <string name="incall_vibrate_45_summary">Vibrar en el segundo 45 de cada minuto de una llamada saliente</string>
 </resources>
