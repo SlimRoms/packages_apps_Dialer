@@ -21,6 +21,7 @@
     <color name="dialtacts_secondary_text_color">#636363</color>
     <color name="dialer_red_highlight_color">#ff1744</color>
     <color name="dialer_green_highlight_color">#00c853</color>
+    <color name="dialer_blue_highlight_color">#00a8ff</color>
 
     <!-- Color for the setting text. -->
     <color name="setting_primary_color">@color/dialtacts_primary_text_color</color>
@@ -93,8 +94,11 @@
     <!-- Color for missed call icons. -->
     <color name="missed_call">#ff2e58</color>
 
-    <!-- Color for answered or outgoing call icons. -->
-    <color name="answered_call">@color/dialer_green_highlight_color</color>
+    <!-- Color for answered call icons. -->
+    <color name="answered_incoming_call">@color/dialer_blue_highlight_color</color>
+
+    <!-- Color for outgoing call icons. -->
+    <color name="answered_outgoing_call">@color/dialer_green_highlight_color</color>
 
     <!-- Color for icons in the actionbar -->
     <color name="actionbar_icon_color">#ffffff</color>
