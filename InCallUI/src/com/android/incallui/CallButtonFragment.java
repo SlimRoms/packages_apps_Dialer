@@ -71,7 +71,6 @@ public class CallButtonFragment
         implements CallButtonPresenter.CallButtonUi, OnMenuItemClickListener, OnDismissListener,
         View.OnClickListener {
 
-    private static final int INVALID_INDEX = -1;
     private int mButtonMaxVisible;
     // The button is currently visible in the UI
     private static final int BUTTON_VISIBLE = 1;
@@ -207,7 +206,7 @@ public class CallButtonFragment
         super.onActivityCreated(savedInstanceState);
 
         // set the buttons
-        updateAudioButtons(getPresenter().getSupportedAudio());
+        updateAudioButtons();
     }
 
     @Override
@@ -500,8 +499,14 @@ public class CallButtonFragment
     }
 
     @Override
-    public void setVideoPaused(boolean isPaused) {
-        mPauseVideoButton.setSelected(isPaused);
+    public void setVideoPaused(boolean isVideoPaused) {
+        mPauseVideoButton.setSelected(isVideoPaused);
+
+        if (isVideoPaused) {
+            mPauseVideoButton.setContentDescription(getText(R.string.onscreenTurnOnCameraText));
+        } else {
+            mPauseVideoButton.setContentDescription(getText(R.string.onscreenTurnOffCameraText));
+        }
     }
 
     public void enableAddParticipant(boolean show) {
@@ -584,7 +589,7 @@ public class CallButtonFragment
 
     @Override
     public void setAudio(int mode) {
-        updateAudioButtons(getPresenter().getSupportedAudio());
+        updateAudioButtons();
         refreshAudioModePopup();
 
         if (mPrevAudioMode != mode) {
@@ -595,7 +600,7 @@ public class CallButtonFragment
 
     @Override
     public void setSupportedAudio(int modeMask) {
-        updateAudioButtons(modeMask);
+        updateAudioButtons();
         refreshAudioModePopup();
     }
 
@@ -634,7 +639,7 @@ public class CallButtonFragment
     public void onDismiss(PopupMenu menu) {
         Log.d(this, "- onDismiss: " + menu);
         mAudioModePopupVisible = false;
-        updateAudioButtons(getPresenter().getSupportedAudio());
+        updateAudioButtons();
     }
 
     /**
@@ -679,7 +684,7 @@ public class CallButtonFragment
      * Updates the audio button so that the appriopriate visual layers
      * are visible based on the supported audio formats.
      */
-    private void updateAudioButtons(int supportedModes) {
+    private void updateAudioButtons() {
         final boolean bluetoothSupported = isSupported(CallAudioState.ROUTE_BLUETOOTH);
         final boolean speakerSupported = isSupported(CallAudioState.ROUTE_SPEAKER);
 

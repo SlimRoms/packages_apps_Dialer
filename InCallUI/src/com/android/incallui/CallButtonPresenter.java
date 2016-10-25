@@ -439,7 +439,6 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
     private void updateButtonsState(Call call) {
         Log.v(this, "updateButtonsState");
         final CallButtonUi ui = getUi();
-
         final boolean isVideo = VideoUtils.isVideoCall(call);
 
         // Common functionality (audio, hold, etc).
