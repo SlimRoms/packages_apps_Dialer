@@ -37,6 +37,7 @@ import static com.android.incallui.CallButtonFragment.Buttons.BUTTON_RXTX_VIDEO_
 import static com.android.incallui.CallButtonFragment.Buttons.BUTTON_RX_VIDEO_CALL;
 import static com.android.incallui.CallButtonFragment.Buttons.BUTTON_VO_VIDEO_CALL;
 import static com.android.incallui.CallButtonFragment.Buttons.BUTTON_ADD_PARTICIPANT;
+import static com.android.incallui.CallButtonFragment.Buttons.BUTTON_HIDE_ME;
 
 import android.annotation.NonNull;
 import android.content.Context;
@@ -113,7 +114,8 @@ public class CallButtonFragment
         public static final int BUTTON_VO_VIDEO_CALL = 17;
         public static final int BUTTON_ADD_PARTICIPANT = 18;
         public static final int BUTTON_RECORD_CALL = 19;
-        public static final int BUTTON_COUNT = 20;
+        public static final int BUTTON_HIDE_ME = 20;
+        public static final int BUTTON_COUNT = 21;
     }
 
     private SparseIntArray mButtonVisibilityMap = new SparseIntArray(BUTTON_COUNT);
@@ -136,6 +138,7 @@ public class CallButtonFragment
     private ImageButton mAssuredTransferButton;
     private ImageButton mConsultativeTransferButton;
     private ImageButton mAddParticipantButton;
+    private ImageButton mHideMeButton;
     private ImageButton mRxTxVideoCallButton;
     private ImageButton mRxVideoCallButton;
     private ImageButton mVoVideoCallButton;
@@ -212,6 +215,8 @@ public class CallButtonFragment
         mConsultativeTransferButton.setOnClickListener(this);
         mAddParticipantButton = (ImageButton) parent.findViewById(R.id.addParticipant);
         mAddParticipantButton.setOnClickListener(this);
+        mHideMeButton = (ImageButton) parent.findViewById(R.id.hideMe);
+        mHideMeButton.setOnClickListener(this);
         mOverflowButton = (ImageButton) parent.findViewById(R.id.overflowButton);
         mOverflowButton.setOnClickListener(this);
         mManageVideoCallConferenceButton = (ImageButton) parent.findViewById(
@@ -266,6 +271,8 @@ public class CallButtonFragment
             getPresenter().showDialpadClicked(!mShowDialpadButton.isSelected());
         } else if (id == R.id.addParticipant) {
             getPresenter().addParticipantClicked();
+        } else if (id == R.id.hideMe) {
+            getPresenter().hideMeClicked(!mHideMeButton.isSelected());
         } else if (id == R.id.changeToVideoButton) {
             getPresenter().changeToVideoClicked();
         } else if (id == R.id.changeToVoiceButton) {
@@ -343,6 +350,7 @@ public class CallButtonFragment
                 mChangeToVoiceButton,
                 mAddCallButton,
                 mMergeButton,
+                mHideMeButton,
                 mBlindTransferButton,
                 mAssuredTransferButton,
                 mConsultativeTransferButton,
@@ -446,6 +454,7 @@ public class CallButtonFragment
         mOverflowButton.setEnabled(isEnabled);
         mManageVideoCallConferenceButton.setEnabled(isEnabled);
         mAddParticipantButton.setEnabled(isEnabled);
+        mHideMeButton.setEnabled(isEnabled);
         mRxTxVideoCallButton.setEnabled(isEnabled);
         mRxVideoCallButton.setEnabled(isEnabled);
         mVoVideoCallButton.setEnabled(isEnabled);
@@ -505,6 +514,8 @@ public class CallButtonFragment
             return mRxVideoCallButton;
         } else if (id == BUTTON_VO_VIDEO_CALL) {
             return mVoVideoCallButton;
+        } else if (id == BUTTON_HIDE_ME) {
+            return mHideMeButton;
         } else {
             Log.w(this, "Invalid button id");
             return null;
@@ -544,6 +555,16 @@ public class CallButtonFragment
             mMuteButton.setContentDescription(getContext().getString(
                     value ? R.string.onscreenMuteText_selected
                             : R.string.onscreenMuteText_unselected));
+        }
+    }
+
+    @Override
+    public void setHideMe(boolean value) {
+        if (mHideMeButton.isSelected() != value) {
+            mHideMeButton.setSelected(value);
+            mHideMeButton.setContentDescription(getContext().getString(
+                    value ? R.string.qti_ims_hideMeText_selected
+                            : R.string.qti_ims_hideMeText_unselected));
         }
     }
 
