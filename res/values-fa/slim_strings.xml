@@ -17,6 +17,51 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="incall_vibration_category_title">لرزش در تماس</string>
+  <string name="incall_vibrate_outgoing_title">لرزش با پاسخ</string>
+  <string name="incall_vibrate_call_waiting_title">لرزش در انتظار تماس</string>
+  <string name="incall_vibrate_hangup_title">لرزش در زمان قطع</string>
+  <string name="incall_vibrate_45_title">لرزش در هر دقیقه</string>
+  <string name="incall_vibrate_45_summary">لرزش در 45 ثانیه علامت دوم هر دقیقه در طول تماس های خروجی</string>
+  <string name="speed_dial_edit_title">ویرایش شماره گیر سریع</string>
+  <string name="speed_dial_input_hint">لطفا یک شماره وارد نمایید</string>
+  <string name="call_log_show_all_slots">تمام سیم کارت ها</string>
+  <string name="call_log_all_calls_header">تمام تماس ها</string>
+  <string name="call_log_blacklist_header">فقط تماس های بلاک شده</string>
+  <string name="call_log_blocked_empty">شما تماسی را بلاک نکرده اید.</string>
   <!-- Call statistics -->
+  <string name="call_log_stats_title">آمار</string>
+  <string name="callStatsDetailTitle">جزییات آمار تماس</string>
+  <string name="call_stats_incoming">تماس ورودی</string>
+  <string name="call_stats_outgoing">تماس خروجی</string>
+  <string name="call_stats_missed">تماس از دست رفته</string>
+  <string name="call_stats_blocked">بلاک شده</string>
+  <string name="call_stats_percent">مقدار تماس</string>
+  <string name="call_stats_header_total">مجموع میزان تماس</string>
+  <string name="call_stats_header_total_callsonly">مجموع میزان تماس های خروجی</string>
+  <string name="call_stats_filter_from">تاریخ شروع</string>
+  <string name="call_stats_filter_to">تاریخ پایان</string>
+  <string name="call_stats_filter_picker_title">محدوده فیلتر</string>
+  <string name="date_quick_selection">انتخاب سریع</string>
+  <string name="date_qs_currentmonth">ماه جاری</string>
+  <string name="date_qs_currentquarter">سه ماهه سال جاری</string>
+  <string name="date_qs_currentyear">سال جاری</string>
+  <string name="date_qs_lastweek">هفته گذشته</string>
+  <string name="date_qs_lastmonth">ماه گذشته</string>
+  <string name="date_qs_lastquarter">سه ماهه گذشته</string>
+  <string name="date_qs_lastyear">سال گذشته</string>
+  <string name="call_stats_date_filter">تنظیم محدوده زمانی</string>
+  <string name="call_stats_reset_filter">تنظیم مجدد محدوده زمانی</string>
+  <string name="call_stats_sort_by_duration">مرتب کردن بر اساس مدت زمان تماس</string>
+  <string name="call_stats_sort_by_count">مرتب سازی براساس تعداد تماس</string>
+  <string name="call_stats_title_for_number">این شماره</string>
+  <string name="call_stats_title_of_total">از مجموع</string>
+  <string name="call_stats_title_durations">مدت زمان تماس</string>
+  <string name="call_stats_title_count">تعداد تماس</string>
+  <string name="call_stats_title_average_duration">متوسط مدت زمان تماس</string>
   <!-- Text displayed when there are no call log entries in the selected time range. -->
+  <string name="recent_calls_no_items_in_range">لیست تماس شما در محدوده زمانی مشخص شده دارای هیچ تماسی نیست.</string>
+  <string name="call_recording_category_title">ضبط تماس</string>
+  <string name="call_recording_format">فرمت صوتی</string>
+  <string name="call_playback_no_app_found_toast">هیچ برنامه ای برای پخش فایل ضبط شده موجود نیست.</string>
 </resources>

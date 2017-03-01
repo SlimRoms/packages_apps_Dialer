@@ -23,6 +23,45 @@
   <string name="incall_vibrate_hangup_title">Δόνηση στο κλείσιμο</string>
   <string name="incall_vibrate_45_title">Δόνηση κάθε 1 λεπτό</string>
   <string name="incall_vibrate_45_summary">Δόνηση στο 45ο δευτερόλεπτο κάθε λεπτού κατά τη διάρκεια εξερχόμενων κλήσεων</string>
+  <string name="speed_dial_edit_title">Επεξεργασία ταχείας κλήσης <xliff:g id="index" example="2">%1$d</xliff:g></string>
+  <string name="speed_dial_input_hint">Παρακαλώ εισάγετε έναν αριθμό</string>
+  <string name="call_log_show_all_slots">Όλες οι SIM</string>
+  <string name="call_log_all_calls_header">Όλες οι κλήσεις</string>
+  <string name="call_log_blacklist_header">Μόνο μπλοκαρισμένες κλήσεις</string>
+  <string name="call_log_blocked_empty">Δεν υπάρχουν μπλοκαρισμένες κλήσεις.</string>
   <!-- Call statistics -->
+  <string name="call_log_stats_title">Στατιστικά</string>
+  <string name="callStatsDetailTitle">Λεπτομέρειες στατιστικών κλήσεων</string>
+  <string name="call_stats_incoming">Εισερχόμενες: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_outgoing">Εξερχόμενες: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_missed">Αναπάντητες: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_blocked">Μπλοκαρισμένες: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
+  <string name="call_stats_header_total">Συνολικά: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
+  <string name="call_stats_header_total_callsonly">Συνολικά: <xliff:g id="call_count">%s</xliff:g></string>
+  <string name="call_stats_filter_from">Ημερομηνία έναρξης</string>
+  <string name="call_stats_filter_to">Ημερομηνία λήξης</string>
+  <string name="call_stats_filter_picker_title">Εύρος φίλτρου</string>
+  <string name="date_quick_selection">Γρήγορη επιλογή</string>
+  <string name="date_qs_currentmonth">Τρέχων μήνας</string>
+  <string name="date_qs_currentquarter">Τρέχον τρίμηνο</string>
+  <string name="date_qs_currentyear">Τρέχων χρόνος</string>
+  <string name="date_qs_lastweek">Προηγούμενη εβδομάδα</string>
+  <string name="date_qs_lastmonth">Προηγούμενος μήνας</string>
+  <string name="date_qs_lastquarter">Τελευταίο τρίμηνο</string>
+  <string name="date_qs_lastyear">Τελευταίος χρόνος</string>
+  <string name="call_stats_date_filter">Ρύθμιση χρονικού εύρους</string>
+  <string name="call_stats_reset_filter">Επαναφορά χρονικού εύρους</string>
+  <string name="call_stats_sort_by_duration">Ταξινόμηση ανά διάρκεια κλήσεων</string>
+  <string name="call_stats_sort_by_count">Ταξινόμηση ανά αριθμό κλήσεων</string>
+  <string name="call_stats_title_for_number">Αυτός ο αριθμός</string>
+  <string name="call_stats_title_of_total">Συνολικά</string>
+  <string name="call_stats_title_durations">Διάρκεια κλήσης</string>
+  <string name="call_stats_title_count">Αριθμός κλήσης</string>
+  <string name="call_stats_title_average_duration">Μέση διάρκεια κλήσης</string>
   <!-- Text displayed when there are no call log entries in the selected time range. -->
+  <string name="recent_calls_no_items_in_range">Το αρχείο κλήσεων δεν περιέχει καθόλου κλήσεις για το επιλεγμένο χρονικό εύρος.</string>
+  <string name="call_recording_category_title">Ηχογράφηση κλήσεων</string>
+  <string name="call_recording_format">Μορφή ήχου</string>
+  <string name="call_playback_no_app_found_toast">Δεν βρέθηκε εφαρμογή για την αναπαραγωγή τις επιλεγμένης ηχογράφησης.</string>
 </resources>

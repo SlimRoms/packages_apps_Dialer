@@ -23,6 +23,45 @@
   <string name="incall_vibrate_hangup_title">Vibrovať po zavesení</string>
   <string name="incall_vibrate_45_title">Vibrovať každú minútu</string>
   <string name="incall_vibrate_45_summary">Vibrovať každú 45. sekundu pri odchádzajúcom hovore</string>
+  <string name="speed_dial_edit_title">Upraviť rýchle vytáčanie <xliff:g id="index" example="2">%1$d</xliff:g></string>
+  <string name="speed_dial_input_hint">Zadajte číslo</string>
+  <string name="call_log_show_all_slots">Všetky karty SIM</string>
+  <string name="call_log_all_calls_header">Všetky hovory</string>
+  <string name="call_log_blacklist_header">Iba blokované hovory</string>
+  <string name="call_log_blocked_empty">Nemáte žiadne blokované hovory.</string>
   <!-- Call statistics -->
+  <string name="call_log_stats_title">Štatistiky</string>
+  <string name="callStatsDetailTitle">Štatistiky hovorov</string>
+  <string name="call_stats_incoming">Prichádzajúce: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_outgoing">Odchádzajúce: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_missed">Zmeškané: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_blocked">Blokované: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
+  <string name="call_stats_header_total">Celkovo: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
+  <string name="call_stats_header_total_callsonly">Celkovo: <xliff:g id="call_count">%s</xliff:g></string>
+  <string name="call_stats_filter_from">Počiatočný Dátum</string>
+  <string name="call_stats_filter_to">Dátum ukončenia</string>
+  <string name="call_stats_filter_picker_title">Rozsah filtra</string>
+  <string name="date_quick_selection">Rýchly výber</string>
+  <string name="date_qs_currentmonth">Aktuálny mesiac</string>
+  <string name="date_qs_currentquarter">Aktuálny štvrťrok</string>
+  <string name="date_qs_currentyear">Aktuálny rok</string>
+  <string name="date_qs_lastweek">Minulý týždeň</string>
+  <string name="date_qs_lastmonth">Minulý mesiac</string>
+  <string name="date_qs_lastquarter">Minulý štvrťrok</string>
+  <string name="date_qs_lastyear">Minulý rok</string>
+  <string name="call_stats_date_filter">Nastaviť časový rozsah</string>
+  <string name="call_stats_reset_filter">Obnoviť časový rozsah</string>
+  <string name="call_stats_sort_by_duration">Zoradiť podľa trvania hovoru</string>
+  <string name="call_stats_sort_by_count">Zoradiť podľa počtu hovorov</string>
+  <string name="call_stats_title_for_number">Toto číslo</string>
+  <string name="call_stats_title_of_total">Z celkovo</string>
+  <string name="call_stats_title_durations">Dĺžka hovoru</string>
+  <string name="call_stats_title_count">Počet hovorov</string>
+  <string name="call_stats_title_average_duration">Priemerná doba trvania hovoru</string>
   <!-- Text displayed when there are no call log entries in the selected time range. -->
+  <string name="recent_calls_no_items_in_range">Zoznam volaní neobsahuje žiadne hovory vo zvolenom časovom rozmedzí.</string>
+  <string name="call_recording_category_title">Nahrávanie hovorov</string>
+  <string name="call_recording_format">Formát zvuku</string>
+  <string name="call_playback_no_app_found_toast">Nenašli sa žiadne aplikácie pre prehrávanie zvolenej nahrávky.</string>
 </resources>

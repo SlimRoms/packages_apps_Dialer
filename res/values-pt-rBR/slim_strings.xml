@@ -23,6 +23,45 @@
   <string name="incall_vibrate_hangup_title">Vibrar ao desligar</string>
   <string name="incall_vibrate_45_title">Vibrar a cada minuto</string>
   <string name="incall_vibrate_45_summary">Vibrar aos 45 segundos de cada minuto durante chamadas realizadas</string>
+  <string name="speed_dial_edit_title">Editar velocidade de discagem <xliff:g id="index" example="2">%1$d</xliff:g></string>
+  <string name="speed_dial_input_hint">Por favor, digite um número</string>
+  <string name="call_log_show_all_slots">Todos os cartões SIM</string>
+  <string name="call_log_all_calls_header">Todas as chamadas</string>
+  <string name="call_log_blacklist_header">Chamadas bloqueadas apenas</string>
+  <string name="call_log_blocked_empty">Você não tem chamadas bloqueadas.</string>
   <!-- Call statistics -->
+  <string name="call_log_stats_title">Estatísticas</string>
+  <string name="callStatsDetailTitle">Estatísticas de chamadas</string>
+  <string name="call_stats_incoming">Recebidas: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_outgoing">Enviadas: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_missed">Perdidas: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_blocked">Bloqueadas: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
+  <string name="call_stats_header_total">Total: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
+  <string name="call_stats_header_total_callsonly">Total: <xliff:g id="call_count">%s</xliff:g></string>
+  <string name="call_stats_filter_from">Data de início</string>
+  <string name="call_stats_filter_to">Data final</string>
+  <string name="call_stats_filter_picker_title">Intervalo de filtro</string>
+  <string name="date_quick_selection">Seleção rápida</string>
+  <string name="date_qs_currentmonth">Mês atual</string>
+  <string name="date_qs_currentquarter">Trimestre atual</string>
+  <string name="date_qs_currentyear">Ano atual</string>
+  <string name="date_qs_lastweek">Semana passada</string>
+  <string name="date_qs_lastmonth">Mês passado</string>
+  <string name="date_qs_lastquarter">Último trimestre</string>
+  <string name="date_qs_lastyear">Ano passado</string>
+  <string name="call_stats_date_filter">Ajustar intervalo de tempo</string>
+  <string name="call_stats_reset_filter">Resetar intervalo de tempo</string>
+  <string name="call_stats_sort_by_duration">Ordenar pela duração da chamada</string>
+  <string name="call_stats_sort_by_count">Ordenar por quantidade de chamadas</string>
+  <string name="call_stats_title_for_number">Este número</string>
+  <string name="call_stats_title_of_total">Do total</string>
+  <string name="call_stats_title_durations">Durações das chamadas</string>
+  <string name="call_stats_title_count">Contagem de chamada</string>
+  <string name="call_stats_title_average_duration">Duração média da chamada</string>
   <!-- Text displayed when there are no call log entries in the selected time range. -->
+  <string name="recent_calls_no_items_in_range">Seu registro de chamadas não possui nenhum registro no intervalo de tempo selecionado.</string>
+  <string name="call_recording_category_title">Gravação de chamadas</string>
+  <string name="call_recording_format">Formato de áudio</string>
+  <string name="call_playback_no_app_found_toast">Nenhum app foi encontrado para a reprodução da gravação selecionada.</string>
 </resources>

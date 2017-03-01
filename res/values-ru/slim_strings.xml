@@ -23,6 +23,10 @@
   <string name="incall_vibrate_hangup_title">Вибрация при отбое</string>
   <string name="incall_vibrate_45_title">Вибрация каждую минуту</string>
   <string name="incall_vibrate_45_summary">Вибрация на 45 секунде каждой минуты во время исходящих вызовов</string>
+  <string name="speed_dial_edit_title">Изменить номер быстрого набора <xliff:g id="index" example="2">%1$d</xliff:g></string>
+  <string name="speed_dial_input_hint">Пожалуйста введите номер</string>
+  <string name="call_log_show_all_slots">Все SIM-карты</string>
+  <string name="call_log_all_calls_header">Все вызовы</string>
   <!-- Call statistics -->
   <!-- Text displayed when there are no call log entries in the selected time range. -->
 </resources>

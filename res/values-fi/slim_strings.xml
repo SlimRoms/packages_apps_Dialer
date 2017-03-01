@@ -17,6 +17,51 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="incall_vibration_category_title">Värinä puhelun aikana</string>
+  <string name="incall_vibrate_outgoing_title">Värinä vastatessa</string>
+  <string name="incall_vibrate_call_waiting_title">Värinä puhelun odottaessa</string>
+  <string name="incall_vibrate_hangup_title">Värinä puhelun loputtua</string>
+  <string name="incall_vibrate_45_title">Värinä joka minuutti</string>
+  <string name="incall_vibrate_45_summary">Värinä joka minuutti 45 sekunnin kohdalla lähtevien puheluiden aikana</string>
+  <string name="speed_dial_edit_title">Muokkaa pikavalintaa <xliff:g id="index" example="2">%1$d</xliff:g></string>
+  <string name="speed_dial_input_hint">Ole hyvä ja syötä numero</string>
+  <string name="call_log_show_all_slots">Kaikki SIM-kortit</string>
+  <string name="call_log_all_calls_header">Kaikki puhelut</string>
+  <string name="call_log_blacklist_header">Vain estetyt puhelut</string>
+  <string name="call_log_blocked_empty">Sinulla ei ole estettyjä puheluita.</string>
   <!-- Call statistics -->
+  <string name="call_log_stats_title">Tilastot</string>
+  <string name="callStatsDetailTitle">Puheluiden lisätiedot</string>
+  <string name="call_stats_incoming">Saapuva: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_outgoing">Lähtevä: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_missed">Vastaamattomat: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_blocked">Estetty: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
+  <string name="call_stats_header_total">Yhteensä: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
+  <string name="call_stats_header_total_callsonly">Yhteensä: <xliff:g id="call_count">%s</xliff:g></string>
+  <string name="call_stats_filter_from">Aloituspäivä</string>
+  <string name="call_stats_filter_to">Päättymispäivä</string>
+  <string name="call_stats_filter_picker_title">Suodata aikaväli</string>
+  <string name="date_quick_selection">Pikavalinta</string>
+  <string name="date_qs_currentmonth">Nykyinen kuukausi</string>
+  <string name="date_qs_currentquarter">Nykyinen vuosineljännes</string>
+  <string name="date_qs_currentyear">Nykyinen vuosi</string>
+  <string name="date_qs_lastweek">Edellinen viikko</string>
+  <string name="date_qs_lastmonth">Viime kuukausi</string>
+  <string name="date_qs_lastquarter">Edellinen vuosineljännes</string>
+  <string name="date_qs_lastyear">Viime vuosi</string>
+  <string name="call_stats_date_filter">Muokkaa aikaväliä</string>
+  <string name="call_stats_reset_filter">Nollaa aikaväli</string>
+  <string name="call_stats_sort_by_duration">Järjestä puhelun keston mukaan</string>
+  <string name="call_stats_sort_by_count">Järjestä puheluiden määrän mukaan</string>
+  <string name="call_stats_title_for_number">Tämä numero</string>
+  <string name="call_stats_title_of_total">Yhteensä</string>
+  <string name="call_stats_title_durations">Puheluiden kestot</string>
+  <string name="call_stats_title_count">Puheluiden määrä</string>
+  <string name="call_stats_title_average_duration">Keskimääräinen puhelun kesto</string>
   <!-- Text displayed when there are no call log entries in the selected time range. -->
+  <string name="recent_calls_no_items_in_range">Puhelulokisi ei sisällä yhtään puhelua valitulla aikavälillä.</string>
+  <string name="call_recording_category_title">Puheluntallennus</string>
+  <string name="call_recording_format">Äänen tallennusmuoto</string>
+  <string name="call_playback_no_app_found_toast">Sovelluksia ei löytynyt nauhoituksen toistamiseen.</string>
 </resources>

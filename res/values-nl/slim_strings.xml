@@ -23,6 +23,44 @@
   <string name="incall_vibrate_hangup_title">Trillen bij ophangen</string>
   <string name="incall_vibrate_45_title">Elke minuut trillen</string>
   <string name="incall_vibrate_45_summary">Elke 45e seconde van een minuut trillen bij uitgaande gesprekken</string>
+  <string name="speed_dial_edit_title">Bewerk snelkiezer <xliff:g id="index" example="2">%1$d</xliff:g></string>
+  <string name="speed_dial_input_hint">Voer een nummer in</string>
+  <string name="call_log_show_all_slots">Alle simkaarten</string>
+  <string name="call_log_all_calls_header">Alle oproepen</string>
+  <string name="call_log_blacklist_header">Alleen geblokeerde oproepen</string>
+  <string name="call_log_blocked_empty">U heeft geen geblokkeerde oproepen.</string>
   <!-- Call statistics -->
+  <string name="call_log_stats_title">Statistieken</string>
+  <string name="callStatsDetailTitle">Oproepstatistiek details</string>
+  <string name="call_stats_incoming">Inkomend: <xliff:g id="value">%s </xliff:g></string>
+  <string name="call_stats_outgoing">Uitgaand: <xliff:g id="value">%s </xliff:g></string>
+  <string name="call_stats_missed">Gemist: <xliff:g id="value">%s </xliff:g></string>
+  <string name="call_stats_blocked">Geblokkeerd: <xliff:g id="value">%s </xliff:g></string>
+  <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
+  <string name="call_stats_header_total">Totaal: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
+  <string name="call_stats_header_total_callsonly">Totaal: <xliff:g id="call_count">%s</xliff:g></string>
+  <string name="call_stats_filter_from">Begindatum</string>
+  <string name="call_stats_filter_to">Einddatum</string>
+  <string name="date_quick_selection">Snelle selectie</string>
+  <string name="date_qs_currentmonth">Huidige maand</string>
+  <string name="date_qs_currentquarter">Huidig kwartaal</string>
+  <string name="date_qs_currentyear">Huidig jaar</string>
+  <string name="date_qs_lastweek">Afgelopen week</string>
+  <string name="date_qs_lastmonth">Afgelopen maand</string>
+  <string name="date_qs_lastquarter">Afgelopen kwartaal</string>
+  <string name="date_qs_lastyear">Afgelopen jaar</string>
+  <string name="call_stats_date_filter">Tijdsbereik aanpassen</string>
+  <string name="call_stats_reset_filter">Tijdsbereik herstellen</string>
+  <string name="call_stats_sort_by_duration">Sorteer op gespreksduur</string>
+  <string name="call_stats_sort_by_count">Sorteer op aantal gesprekken</string>
+  <string name="call_stats_title_for_number">Dit nummer</string>
+  <string name="call_stats_title_of_total">Van totaal</string>
+  <string name="call_stats_title_durations">Gespreksduur</string>
+  <string name="call_stats_title_count">Aantal gesprekken</string>
+  <string name="call_stats_title_average_duration">Gemiddelde gespreksduur</string>
   <!-- Text displayed when there are no call log entries in the selected time range. -->
+  <string name="recent_calls_no_items_in_range">Uw belgeschiedenis bevat geen oproepen in het geselecteerde tijdsbereik.</string>
+  <string name="call_recording_category_title">Gespreksopname</string>
+  <string name="call_recording_format">Audio-indeling</string>
+  <string name="call_playback_no_app_found_toast">Er kon geen applicatie worden gevonden voor het afspelen van de geselecteerde opname.</string>
 </resources>

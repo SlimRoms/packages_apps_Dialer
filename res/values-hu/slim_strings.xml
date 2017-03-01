@@ -23,6 +23,45 @@
   <string name="incall_vibrate_hangup_title">Bontáskor rezeg</string>
   <string name="incall_vibrate_45_title">Percenként rezeg</string>
   <string name="incall_vibrate_45_summary">Minden 45. másodpercben rezeg a kimenő hívások során</string>
+  <string name="speed_dial_edit_title">Gyorstárcsázó szerkesztése: <xliff:g id="index" example="2">%1$d</xliff:g></string>
+  <string name="speed_dial_input_hint">Adjon meg egy számot</string>
+  <string name="call_log_show_all_slots">Minden SIM</string>
+  <string name="call_log_all_calls_header">Minden hívás</string>
+  <string name="call_log_blacklist_header">Csak blokkolt hívások</string>
+  <string name="call_log_blocked_empty">Nincsenek blokkolt hívások.</string>
   <!-- Call statistics -->
+  <string name="call_log_stats_title">Statisztikák</string>
+  <string name="callStatsDetailTitle">Hívás adatok</string>
+  <string name="call_stats_incoming">Bejövő: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_outgoing">Kimenő: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_missed">Nem fogadott: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_blocked">Blokkolt: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
+  <string name="call_stats_header_total">Összes: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
+  <string name="call_stats_header_total_callsonly">Összesen: <xliff:g id="call_count">%s</xliff:g></string>
+  <string name="call_stats_filter_from">Kezdő dátum</string>
+  <string name="call_stats_filter_to">Vége dátum</string>
+  <string name="call_stats_filter_picker_title">Szűrési tartomány</string>
+  <string name="date_quick_selection">Gyors választás</string>
+  <string name="date_qs_currentmonth">Aktuális hónap</string>
+  <string name="date_qs_currentquarter">Aktuális negyedév</string>
+  <string name="date_qs_currentyear">Aktuális év</string>
+  <string name="date_qs_lastweek">Elmúlt hét</string>
+  <string name="date_qs_lastmonth">Elmúlt hónap</string>
+  <string name="date_qs_lastquarter">Elmúlt negyedév</string>
+  <string name="date_qs_lastyear">Elmúlt év</string>
+  <string name="call_stats_date_filter">Időszak beállítása</string>
+  <string name="call_stats_reset_filter">Időszak alaphelyzetre</string>
+  <string name="call_stats_sort_by_duration">Időtartam szerint</string>
+  <string name="call_stats_sort_by_count">Hívások száma szerint</string>
+  <string name="call_stats_title_for_number">Ez a szám</string>
+  <string name="call_stats_title_of_total">A teljes</string>
+  <string name="call_stats_title_durations">Hívás időtartama</string>
+  <string name="call_stats_title_count">Hívások száma</string>
+  <string name="call_stats_title_average_duration">Átlagos hívásidőtartam</string>
   <!-- Text displayed when there are no call log entries in the selected time range. -->
+  <string name="recent_calls_no_items_in_range">A hívásnapló nem tartalmaz semmilyen hívást a kijelölt időtartományban.</string>
+  <string name="call_recording_category_title">Hívásrögzítés</string>
+  <string name="call_recording_format">Hangformátum</string>
+  <string name="call_playback_no_app_found_toast">Nem található alakalmazás a kiválasztott felvétel lejátszásához.</string>
 </resources>
