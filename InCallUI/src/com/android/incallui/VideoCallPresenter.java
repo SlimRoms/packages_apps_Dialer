@@ -757,9 +757,9 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         }
     }
 
-    private boolean isCameraRequired(int videoState) {
-        return ((VideoProfile.isBidirectional(videoState) ||
-                VideoProfile.isTransmissionEnabled(videoState)) && !mIsInBackground);
+    private static boolean isCameraRequired(int videoState) {
+        return VideoProfile.isBidirectional(videoState)
+                || VideoProfile.isTransmissionEnabled(videoState);
     }
 
     private boolean isCameraRequired() {
@@ -1598,7 +1598,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
     /**
      * Returns true if camera preview shall be shown till remote user react on the request.
      */
-    private static boolean isModifyCallPreview(Context ctx, Call call) {
+    private boolean isModifyCallPreview(Context ctx, Call call) {
         if (call == null || !QtiCallUtils.shallShowPreviewWhileWaiting(ctx)) {
             return false;
         }
