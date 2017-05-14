@@ -17,12 +17,48 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="incall_vibration_category_title">Vibration während eines Anrufes</string>
+  <string name="incall_vibration_category_title">Vibration während eingehendem Anruf</string>
   <string name="incall_vibrate_outgoing_title">Bei Annahme vibrieren</string>
   <string name="incall_vibrate_call_waiting_title">Beim Anklopfen vibrieren</string>
   <string name="incall_vibrate_hangup_title">Beim Auflegen vibrieren</string>
   <string name="incall_vibrate_45_title">Jede Minute vibrieren</string>
   <string name="incall_vibrate_45_summary">Vibriert 15 Sekunden vor Ende jeder vollen Minute während eines ausgehenden Anrufes</string>
+  <string name="speed_dial_edit_title">Kurzwahl <xliff:g id="index" example="2">%1$d</xliff:g> bearbeiten</string>
+  <string name="speed_dial_input_hint">Bitte geben Sie eine Nummer ein</string>
+  <string name="call_log_show_all_slots">Alle SIM-Karten</string>
+  <string name="call_log_all_calls_header">Alle Anrufe</string>
+  <string name="call_log_blacklist_header">Nur blockierte Anrufe</string>
+  <string name="call_log_blocked_empty">Sie haben keine blockierten Anrufe.</string>
   <!-- Call statistics -->
+  <string name="call_log_stats_title">Statistiken</string>
+  <string name="callStatsDetailTitle">Anrufstatistik-Details</string>
+  <string name="call_stats_incoming">Eingehend: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_outgoing">Ausgehend: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_missed">Verpasst: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_blocked">Blockiert: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
+  <string name="call_stats_header_total">Insgesamt: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
+  <string name="call_stats_header_total_callsonly">Insgesamt: <xliff:g id="call_count">%s</xliff:g></string>
+  <string name="call_stats_filter_from">Anfangsdatum</string>
+  <string name="call_stats_filter_to">Enddatum</string>
+  <string name="call_stats_filter_picker_title">Filterbereich</string>
+  <string name="date_quick_selection">Schnellauswahl</string>
+  <string name="date_qs_currentmonth">Aktueller Monat</string>
+  <string name="date_qs_currentquarter">Aktuelles Quartal</string>
+  <string name="date_qs_currentyear">Aktuelles Jahr</string>
+  <string name="date_qs_lastweek">Letzte Woche</string>
+  <string name="date_qs_lastmonth">Letzter Monat</string>
+  <string name="date_qs_lastquarter">Letztes Quartal</string>
+  <string name="date_qs_lastyear">Letztes Jahr</string>
+  <string name="call_stats_date_filter">Datumsbereich anpassen</string>
+  <string name="call_stats_reset_filter">Datumsbereich zurücksetzen</string>
+  <string name="call_stats_sort_by_duration">Nach Anrufdauer sortieren</string>
+  <string name="call_stats_sort_by_count">Nach Anrufanzahl sortieren</string>
+  <string name="call_stats_title_for_number">Diese Nummer</string>
+  <string name="call_stats_title_durations">Gesprächsdauer</string>
+  <string name="call_stats_title_average_duration">Durchschnittliche Anrufdauer</string>
   <!-- Text displayed when there are no call log entries in the selected time range. -->
+  <string name="recent_calls_no_items_in_range">Ihre Anrufliste enthält keine Aufrufe im ausgewählten Zeitbereich.</string>
+  <string name="call_recording_category_title">Anrufaufnahme</string>
+  <string name="call_playback_no_app_found_toast">Es wurde keine Anwendung für die Wiedergabe der ausgewählten Aufnahme gefunden.</string>
 </resources>

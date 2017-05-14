@@ -17,6 +17,51 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="incall_vibration_category_title">Вибриране при входящо обаждане</string>
+  <string name="incall_vibrate_outgoing_title">Вибрирай при отговор</string>
+  <string name="incall_vibrate_call_waiting_title">Вибрирай при изчакване на повикването</string>
+  <string name="incall_vibrate_hangup_title">Вибрирай при край на обаждане</string>
+  <string name="incall_vibrate_45_title">Вибрирай всяка минута</string>
+  <string name="incall_vibrate_45_summary">Вибрира на 45-та секунда от всяка минута по време на изходящи повиквания</string>
+  <string name="speed_dial_edit_title">Редактиране на бързо набиране <xliff:g id="index" example="2">%1$d </xliff:g></string>
+  <string name="speed_dial_input_hint">Моля въведете номер</string>
+  <string name="call_log_show_all_slots">Всички SIM карти</string>
+  <string name="call_log_all_calls_header">Всички повиквания</string>
+  <string name="call_log_blacklist_header">Блокираните повиквания само</string>
+  <string name="call_log_blocked_empty">Нямате блокирани обаждания.</string>
   <!-- Call statistics -->
+  <string name="call_log_stats_title">Статистики</string>
+  <string name="callStatsDetailTitle">Детайли за повикване</string>
+  <string name="call_stats_incoming">Входящи: <xliff:g id="value">%s </xliff:g></string>
+  <string name="call_stats_outgoing">Изходящи: <xliff:g id="value">%s </xliff:g></string>
+  <string name="call_stats_missed">Пропуснати: <xliff:g id="value">%s </xliff:g></string>
+  <string name="call_stats_blocked">Блокирани: <xliff:g id="value">%s </xliff:g></string>
+  <string name="call_stats_percent"><xliff:g id="percent">%d </xliff:g>%%</string>
+  <string name="call_stats_header_total">Общо: <xliff:g id="call_count">%s </xliff:g>, <xliff:g id="duration"> %s </xliff:g></string>
+  <string name="call_stats_header_total_callsonly">Общо: <xliff:g id="call_count">%s </xliff:g></string>
+  <string name="call_stats_filter_from">Начална дата</string>
+  <string name="call_stats_filter_to">Крайна дата</string>
+  <string name="call_stats_filter_picker_title">Диапазон за филтриране</string>
+  <string name="date_quick_selection">Бърз избор</string>
+  <string name="date_qs_currentmonth">Текущият месец</string>
+  <string name="date_qs_currentquarter">Текущото тримесечие</string>
+  <string name="date_qs_currentyear">Текущата година</string>
+  <string name="date_qs_lastweek">Миналата седмица</string>
+  <string name="date_qs_lastmonth">Миналият месец</string>
+  <string name="date_qs_lastquarter">Последното тримесечие</string>
+  <string name="date_qs_lastyear">Миналата година</string>
+  <string name="call_stats_date_filter">Настройте времеви диапазон</string>
+  <string name="call_stats_reset_filter">Нулиране времеви диапазон</string>
+  <string name="call_stats_sort_by_duration">Сортирай по продължителност на разговора</string>
+  <string name="call_stats_sort_by_count">Сортирай по брой повиквания</string>
+  <string name="call_stats_title_for_number">Този номер</string>
+  <string name="call_stats_title_of_total">От общо</string>
+  <string name="call_stats_title_durations">Продължителност на разговорите</string>
+  <string name="call_stats_title_count">Брой на разговорите</string>
+  <string name="call_stats_title_average_duration">Средна продължителност на разговорите</string>
   <!-- Text displayed when there are no call log entries in the selected time range. -->
+  <string name="recent_calls_no_items_in_range">В регистъра на обажданията няма записи за избрания времеви период.</string>
+  <string name="call_recording_category_title">Запис на обаждането</string>
+  <string name="call_recording_format">Аудио формат</string>
+  <string name="call_playback_no_app_found_toast">Не е намерено приложение за възпроизвеждане на избрания запис.</string>
 </resources>

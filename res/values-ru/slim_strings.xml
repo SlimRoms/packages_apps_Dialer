@@ -27,6 +27,41 @@
   <string name="speed_dial_input_hint">Пожалуйста введите номер</string>
   <string name="call_log_show_all_slots">Все SIM-карты</string>
   <string name="call_log_all_calls_header">Все вызовы</string>
+  <string name="call_log_blacklist_header">Только заблокированные вызовы</string>
+  <string name="call_log_blocked_empty">Нет заблокированных звонков.</string>
   <!-- Call statistics -->
+  <string name="call_log_stats_title">Статистика</string>
+  <string name="callStatsDetailTitle">Статистика вызовов</string>
+  <string name="call_stats_incoming">Входящих: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_outgoing">Исходящих: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_missed">Пропущенных: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_blocked">Заблокированы: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
+  <string name="call_stats_header_total">Всего: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
+  <string name="call_stats_header_total_callsonly">Всего: <xliff:g id="call_count">%s</xliff:g></string>
+  <string name="call_stats_filter_from">Дата начала</string>
+  <string name="call_stats_filter_to">Дате окончания</string>
+  <string name="call_stats_filter_picker_title">Диапазон выбора</string>
+  <string name="date_quick_selection">Быстрый выбор</string>
+  <string name="date_qs_currentmonth">Текущий месяц</string>
+  <string name="date_qs_currentquarter">Текущий квартал</string>
+  <string name="date_qs_currentyear">Текущий год</string>
+  <string name="date_qs_lastweek">На прошлой неделе</string>
+  <string name="date_qs_lastmonth">Прошлый месяц</string>
+  <string name="date_qs_lastquarter">Прошлый квартал</string>
+  <string name="date_qs_lastyear">Прошлый год</string>
+  <string name="call_stats_date_filter">Изменить временной промежуток</string>
+  <string name="call_stats_reset_filter">Сброс диапазона времени</string>
+  <string name="call_stats_sort_by_duration">Сортировать по длительности вызова</string>
+  <string name="call_stats_sort_by_count">Сортировать по количеству вызовов</string>
+  <string name="call_stats_title_for_number">Этот номер</string>
+  <string name="call_stats_title_of_total">Из общего числа</string>
+  <string name="call_stats_title_durations">Время разговора</string>
+  <string name="call_stats_title_count">Количество вызовов</string>
+  <string name="call_stats_title_average_duration">Средняя продолжительность вызова</string>
   <!-- Text displayed when there are no call log entries in the selected time range. -->
+  <string name="recent_calls_no_items_in_range">В вашем журнале вызовов нет вызовов за указанный промежуток времени.</string>
+  <string name="call_recording_category_title">Запись вызова</string>
+  <string name="call_recording_format">Формат аудио</string>
+  <string name="call_playback_no_app_found_toast">Нет приложений которые смогли бы воспроизвести выбранную запись.</string>
 </resources>
