@@ -17,6 +17,51 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="incall_vibration_category_title">Vibracija pokalbio metu</string>
+  <string name="incall_vibrate_outgoing_title">Vibruoti, kai atsiliepiama</string>
+  <string name="incall_vibrate_call_waiting_title">Vibruoti, kai laukia skambutis</string>
+  <string name="incall_vibrate_hangup_title">Vibruoti, kai baigiamas pokalbis</string>
+  <string name="incall_vibrate_45_title">Vibruoti kiekvieną minutę</string>
+  <string name="incall_vibrate_45_summary">Vibruoti ties 45 sekundę, kiekvieną išeinančio skambučio minutę</string>
+  <string name="speed_dial_edit_title">Redaguoti greičio telefono <xliff:g id="index" example="2">%1$d </xliff:g></string>
+  <string name="speed_dial_input_hint">Prašome įvesti telefono numerį</string>
+  <string name="call_log_show_all_slots">Visos SIM</string>
+  <string name="call_log_all_calls_header">Visi skambučiai</string>
+  <string name="call_log_blacklist_header">Tik blokuoti skambučiai</string>
+  <string name="call_log_blocked_empty">Jūs neturite užblokuotu skambučių.</string>
   <!-- Call statistics -->
+  <string name="call_log_stats_title">Statistika</string>
+  <string name="callStatsDetailTitle">Skambučių statistikos informacija</string>
+  <string name="call_stats_incoming">Įeinantys: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_outgoing">Išeinantys: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_missed">Praleisti: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_blocked">Užblokuotas: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
+  <string name="call_stats_header_total">Iš viso: <xliff:g id="call_count">%s </xliff:g>, <xliff:g id="duration"> %s </xliff:g></string>
+  <string name="call_stats_header_total_callsonly">Viso: <xliff:g id="call_count">%s</xliff:g></string>
+  <string name="call_stats_filter_from">Pradžios data</string>
+  <string name="call_stats_filter_to">Pabaigos data</string>
+  <string name="call_stats_filter_picker_title">Filtravimo laikotarpis</string>
+  <string name="date_quick_selection">Greitas pasirinkimas</string>
+  <string name="date_qs_currentmonth">Šis mėnuo</string>
+  <string name="date_qs_currentquarter">Einamasis ketvirtis</string>
+  <string name="date_qs_currentyear">Einamieji metai</string>
+  <string name="date_qs_lastweek">Praeita savaitė</string>
+  <string name="date_qs_lastmonth">Praeitas mėnesis</string>
+  <string name="date_qs_lastquarter">Praėjęs ketvirtis</string>
+  <string name="date_qs_lastyear">Praėję metai</string>
+  <string name="call_stats_date_filter">Nustatyti laikotarpį</string>
+  <string name="call_stats_reset_filter">Atkurti laikotarpį</string>
+  <string name="call_stats_sort_by_duration">Rūšiuoti pagal skambučio trukmę</string>
+  <string name="call_stats_sort_by_count">Rūšiuoti pagal skambučių skaičių</string>
+  <string name="call_stats_title_for_number">Šis skaičius</string>
+  <string name="call_stats_title_of_total">Iš viso</string>
+  <string name="call_stats_title_durations">Skambučio trukmė</string>
+  <string name="call_stats_title_count">Skambučių skaičius</string>
+  <string name="call_stats_title_average_duration">Vidutinė skambučio trukmė</string>
   <!-- Text displayed when there are no call log entries in the selected time range. -->
+  <string name="recent_calls_no_items_in_range">Jūsų skambučių žurnale nėra jokiu skambučių pasirinktame laiko intervale.</string>
+  <string name="call_recording_category_title">Skambučių įrašymas</string>
+  <string name="call_recording_format">Garso formatas</string>
+  <string name="call_playback_no_app_found_toast">Nė viena programėlė nerasta skirta paleisti pasirinktą įrašynėjimą.</string>
 </resources>

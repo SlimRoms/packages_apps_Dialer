@@ -23,6 +23,20 @@
   <string name="incall_vibrate_hangup_title">Vibrar ao terminar a chamada</string>
   <string name="incall_vibrate_45_title">Vibrar a cada minuto</string>
   <string name="incall_vibrate_45_summary">Vibrar a cada 45 segundos durante chamadas efetuadas</string>
+  <string name="call_log_all_calls_header">Todas as chamadas</string>
   <!-- Call statistics -->
+  <string name="call_log_stats_title">Estatísticas</string>
+  <string name="callStatsDetailTitle">Detalhes das estatísticas das chamadas</string>
+  <string name="call_stats_incoming">Recebidas: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_outgoing">Efectuadas: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_missed">Não atendidas: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_blocked">Bloqueadas: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
+  <string name="call_stats_header_total">Total: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
+  <string name="call_stats_header_total_callsonly">Total: <xliff:g id="call_count">%s</xliff:g></string>
+  <string name="call_stats_filter_from">Data de início</string>
+  <string name="call_stats_filter_to">Data de fim</string>
+  <string name="call_stats_title_for_number">Este número</string>
   <!-- Text displayed when there are no call log entries in the selected time range. -->
+  <string name="call_recording_format">Formato de áudio</string>
 </resources>
