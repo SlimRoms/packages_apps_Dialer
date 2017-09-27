@@ -17,6 +17,22 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="incall_vibration_category_title">Вибрација током позива</string>
+  <string name="incall_vibrate_outgoing_title">Вибрација при јављању</string>
+  <string name="incall_vibrate_45_title">Вибрација сваког минута</string>
+  <string name="speed_dial_input_hint">Унесите број</string>
+  <string name="call_log_show_all_slots">Све SIM картице</string>
+  <string name="call_log_all_calls_header">Сви позиви</string>
   <!-- Call statistics -->
+  <string name="call_log_stats_title">Статистика</string>
+  <string name="call_stats_filter_from">Датум почетка</string>
+  <string name="call_stats_filter_to">Датум завршетка</string>
+  <string name="date_qs_lastmonth">Прошлог месеца</string>
+  <string name="date_qs_lastquarter">Прошли квартал</string>
+  <string name="date_qs_lastyear">Прошлe година</string>
+  <string name="call_stats_date_filter">Подеси временски опсег</string>
+  <string name="call_stats_reset_filter">Ресетуј временски опсег</string>
+  <string name="call_stats_title_for_number">Овај број</string>
   <!-- Text displayed when there are no call log entries in the selected time range. -->
+  <string name="call_recording_category_title">Снимање позива</string>
 </resources>
