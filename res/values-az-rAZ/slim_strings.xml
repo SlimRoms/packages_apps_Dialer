@@ -17,6 +17,48 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="incall_vibrate_outgoing_title">Cavablayanda titrət</string>
+  <string name="incall_vibrate_call_waiting_title">Zəng gözlədiləndə titrət</string>
+  <string name="incall_vibrate_hangup_title">Söndürəndə titrət</string>
+  <string name="incall_vibrate_45_title">Hər dəqiqə titrət</string>
+  <string name="incall_vibrate_45_summary">Gedən zənglərin hər dəqiqəsinin 45-ci saniyəsində titrət</string>
+  <string name="speed_dial_edit_title"><xliff:g id="index" example="2">%1$d</xliff:g> Cəld yığıma düzəliş et</string>
+  <string name="speed_dial_input_hint">Zəhmət olmasa nömrə daxil edin</string>
+  <string name="call_log_show_all_slots">Bütün SIMlər</string>
+  <string name="call_log_all_calls_header">Bütün zənglər</string>
+  <string name="call_log_blacklist_header">Yalnız əngəllənən zənglər</string>
+  <string name="call_log_blocked_empty">Əngəllənən zənginiz yoxdur.</string>
   <!-- Call statistics -->
+  <string name="call_log_stats_title">Statistikalar</string>
+  <string name="callStatsDetailTitle">Zəng statistikası təfsilatı</string>
+  <string name="call_stats_incoming">Gələn: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_outgoing">Gedən: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_missed">Cavabsız: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_blocked">Əngəllənən: <xliff:g id="value">%s</xliff:g></string>
+  <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
+  <string name="call_stats_header_total">Ümumi: <xliff:g id="call_count">%s</xliff:g>,<xliff:g id="duration">%s</xliff:g></string>
+  <string name="call_stats_header_total_callsonly">Ümumi: <xliff:g id="call_count">%s</xliff:g></string>
+  <string name="call_stats_filter_from">Başlanğıc tarixi</string>
+  <string name="call_stats_filter_to">Bitmə tarixi</string>
+  <string name="call_stats_filter_picker_title">Filtr aralığı</string>
+  <string name="date_quick_selection">Cəld seçim</string>
+  <string name="date_qs_currentmonth">Hazırki ay</string>
+  <string name="date_qs_currentquarter">Hazırki rüb</string>
+  <string name="date_qs_currentyear">Hazırki il</string>
+  <string name="date_qs_lastweek">Keçən həftə</string>
+  <string name="date_qs_lastmonth">Keçən ay</string>
+  <string name="date_qs_lastquarter">Keçən rüb</string>
+  <string name="date_qs_lastyear">Keçən il</string>
+  <string name="call_stats_date_filter">Vaxt aralığını nizamla</string>
+  <string name="call_stats_reset_filter">Zaman aralığını sıfırla</string>
+  <string name="call_stats_sort_by_duration">Zəng müddətinə görə sırala</string>
+  <string name="call_stats_sort_by_count">Zəng sayına görə sırala</string>
+  <string name="call_stats_title_for_number">Bu nömrə</string>
+  <string name="call_stats_title_of_total">Ümumi</string>
+  <string name="call_stats_title_durations">Zəng müddətləri</string>
+  <string name="call_stats_title_count">Zəng sayı</string>
+  <string name="call_stats_title_average_duration">Ortalama zəng müddəti</string>
   <!-- Text displayed when there are no call log entries in the selected time range. -->
+  <string name="recent_calls_no_items_in_range">Seçilmiş vaxt aralığında zəng qeydiniz heçnə ehtiva etmir.</string>
+  <string name="call_recording_category_title">Zəng səsyazması</string>
 </resources>

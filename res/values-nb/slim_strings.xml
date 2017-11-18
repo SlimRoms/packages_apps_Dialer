@@ -17,6 +17,37 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="incall_vibration_category_title">Vibrasjon under samtalen</string>
+  <string name="incall_vibrate_outgoing_title">Vibrere på svar</string>
+  <string name="incall_vibrate_call_waiting_title">Vibrere på samtale venter</string>
+  <string name="incall_vibrate_hangup_title">Vibrere på legg på</string>
+  <string name="incall_vibrate_45_title">Vibrere hvert minutt</string>
+  <string name="incall_vibrate_45_summary">Vibrerer på 45-sekunders tiden for å markere hvert minutt under utgående samtale</string>
+  <string name="speed_dial_input_hint">Vennligst oppgi et tall</string>
+  <string name="call_log_show_all_slots">Alle SIM-kort</string>
+  <string name="call_log_all_calls_header">Alle samtaler</string>
   <!-- Call statistics -->
+  <string name="call_log_stats_title">Statistikk</string>
+  <string name="callStatsDetailTitle">Detaljer for samtalestatus</string>
+  <string name="call_stats_header_total">Totalt: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
+  <string name="call_stats_header_total_callsonly">Totalt: <xliff:g id="call_count">%s</xliff:g></string>
+  <string name="call_stats_filter_from">Startdato</string>
+  <string name="call_stats_filter_to">Sluttdato</string>
+  <string name="call_stats_filter_picker_title">Filtreringsområde</string>
+  <string name="date_quick_selection">Hurtigvalg</string>
+  <string name="date_qs_currentmonth">Gjeldende måned</string>
+  <string name="date_qs_currentquarter">Gjeldende kvartal</string>
+  <string name="date_qs_currentyear">Inneværende år</string>
+  <string name="date_qs_lastweek">Forrige uke</string>
+  <string name="date_qs_lastmonth">Forrige måned</string>
+  <string name="date_qs_lastquarter">Siste kvartal</string>
+  <string name="date_qs_lastyear">I fjor</string>
+  <string name="call_stats_date_filter">Juster tidsperiode</string>
+  <string name="call_stats_reset_filter">Tilbakestille tidsperiode</string>
+  <string name="call_stats_sort_by_duration">Sorter etter samtalevarighet</string>
+  <string name="call_stats_sort_by_count">Sorter etter antall samtaler</string>
+  <string name="call_stats_title_durations">Samtalevarighet</string>
   <!-- Text displayed when there are no call log entries in the selected time range. -->
+  <string name="call_recording_format">Lydformat</string>
+  <string name="call_playback_no_app_found_toast">Ingen apper kan spille av den valgte innspillingen.</string>
 </resources>
