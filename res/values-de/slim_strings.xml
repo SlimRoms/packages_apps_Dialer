@@ -55,10 +55,13 @@
   <string name="call_stats_sort_by_duration">Nach Anrufdauer sortieren</string>
   <string name="call_stats_sort_by_count">Nach Anrufanzahl sortieren</string>
   <string name="call_stats_title_for_number">Diese Nummer</string>
+  <string name="call_stats_title_of_total">von Gesamt</string>
   <string name="call_stats_title_durations">Gesprächsdauer</string>
+  <string name="call_stats_title_count">Anrufanzahl</string>
   <string name="call_stats_title_average_duration">Durchschnittliche Anrufdauer</string>
   <!-- Text displayed when there are no call log entries in the selected time range. -->
   <string name="recent_calls_no_items_in_range">Ihre Anrufliste enthält keine Aufrufe im ausgewählten Zeitbereich.</string>
   <string name="call_recording_category_title">Anrufaufnahme</string>
+  <string name="call_recording_format">Audioformat</string>
   <string name="call_playback_no_app_found_toast">Es wurde keine Anwendung für die Wiedergabe der ausgewählten Aufnahme gefunden.</string>
 </resources>
